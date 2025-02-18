@@ -43,9 +43,15 @@ interface TimeProps {
  * @returns {JSX.Element} The rendered time element.
  */
 const Time: React.FC<TimeProps> = ({ date }) => {
-    const daysDiff = dayjs().diff(dayjs(date), "day");
+    const parsedDate = dayjs(date);
+
+    if (!parsedDate.isValid()) {
+        return <time className="text-zinc-400">유효하지 않은 날짜</time>;
+    }
+
+    const daysDiff = dayjs().diff(parsedDate, "day");
     const formattedTime =
-        daysDiff > 7 ? dayjs(date).format("YYYY.MM.DD") : dayjs(date).fromNow();
+        daysDiff >= 7 ? parsedDate.format("YYYY.MM.DD") : parsedDate.fromNow();
 
     return <time className="text-zinc-400">{formattedTime}</time>;
 };
