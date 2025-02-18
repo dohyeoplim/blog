@@ -3,15 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
 import Time from "../Time";
+import { Post } from "@/types/post";
 
 interface PreviewListItemProps {
-    post: {
-        title: string;
-        excerpt: string;
-        slug: string;
-        date: string;
-        tags?: string[];
-    };
+    post: Post;
 }
 
 const PreviewListItem = ({ post }: PreviewListItemProps) => {
@@ -26,9 +21,11 @@ const PreviewListItem = ({ post }: PreviewListItemProps) => {
                     </Link>
                 </header>
 
-                <p className="text-sm text-secondary-foreground">
-                    {post.excerpt}
-                </p>
+                {post.excerpt && (
+                    <p className="text-sm text-secondary-foreground">
+                        {post.excerpt}
+                    </p>
+                )}
             </div>
 
             <div className="w-full flex items-center justify-between">
@@ -37,13 +34,15 @@ const PreviewListItem = ({ post }: PreviewListItemProps) => {
                         <Time date={post.date} />
                     </div>
 
-                    <div className="flex space-x-2">
-                        {post.tags?.map((tag, index) => (
-                            <Badge key={index} variant="outline">
-                                {tag}
-                            </Badge>
-                        ))}
-                    </div>
+                    {post.tags && post.tags.length > 0 && (
+                        <div className="flex space-x-2">
+                            {post.tags.map((tag, index) => (
+                                <Badge key={index} variant="outline">
+                                    {tag}
+                                </Badge>
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <Link href={`/blog/${post.slug}`}>
                     <Button variant="ghost">
