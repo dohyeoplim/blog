@@ -12,46 +12,82 @@ type BlockquoteProps = ComponentPropsWithoutRef<"blockquote">;
 const components = {
     h1: (props: HeadingProps) => (
         <h1
-            className="font-semibold text-xl pt-12 text-foreground"
+            className="font-medium text-gray-900 dark:text-zinc-100"
+            style={{ paddingTop: "3rem", marginBottom: "0" }}
             {...props}
         />
     ),
     h2: (props: HeadingProps) => (
-        <h2 className="text-primary font-medium mt-8 mb-3" {...props} />
+        <h2
+            className="text-gray-800 dark:text-zinc-200 font-medium"
+            style={{ marginTop: "2rem", marginBottom: "0.75rem" }}
+            {...props}
+        />
     ),
     h3: (props: HeadingProps) => (
-        <h3 className="text-primary font-medium mt-8 mb-3" {...props} />
+        <h3
+            className="text-gray-800 dark:text-zinc-200 font-medium"
+            style={{ marginTop: "2rem", marginBottom: "0.75rem" }}
+            {...props}
+        />
     ),
     h4: (props: HeadingProps) => (
-        <h4 className="font-medium text-foreground" {...props} />
+        <h4
+            className="font-medium text-gray-800 dark:text-zinc-200"
+            {...props}
+        />
     ),
     p: (props: ParagraphProps) => (
-        <p className="text-muted-foreground leading-relaxed" {...props} />
+        <p
+            className="text-gray-800 dark:text-zinc-300 leading-snug"
+            style={{ marginBottom: "1rem" }}
+            {...props}
+        />
     ),
     ol: (props: ListProps) => (
         <ol
-            className="list-decimal pl-5 space-y-2 text-muted-foreground"
+            className="text-gray-800 dark:text-zinc-300"
+            style={{
+                paddingLeft: "1.25rem",
+                listStyleType: "decimal",
+                marginBottom: "0.5rem",
+            }}
             {...props}
         />
     ),
     ul: (props: ListProps) => (
         <ul
-            className="list-disc pl-5 space-y-1 text-muted-foreground"
+            className="text-gray-800 dark:text-zinc-300"
+            style={{
+                paddingLeft: "1.25rem",
+                listStyleType: "disc",
+                marginBottom: "0.5rem",
+            }}
             {...props}
         />
     ),
     li: (props: ListItemProps) => (
-        <li className="pl-1 text-foreground" {...props} />
+        <li
+            className="text-gray-800 dark:text-zinc-300"
+            style={{ paddingLeft: "0.25rem" }}
+            {...props}
+        />
     ),
     em: (props: ComponentPropsWithoutRef<"em">) => (
-        <em className="font-medium text-foreground" {...props} />
+        <em
+            className="font-medium text-gray-800 dark:text-zinc-300"
+            {...props}
+        />
     ),
     strong: (props: ComponentPropsWithoutRef<"strong">) => (
-        <strong className="font-medium text-foreground" {...props} />
+        <strong
+            className="font-medium text-gray-900 dark:text-zinc-100"
+            {...props}
+        />
     ),
     a: ({ href, children, ...props }: AnchorProps) => {
         const className =
-            "text-primary hover:text-primary-foreground underline-offset-2";
+            "text-blue-500 hover:text-blue-700 dark:text-gray-400 hover:dark:text-gray-300 dark:underline dark:underline-offset-2 dark:decoration-gray-800";
         if (href?.startsWith("/")) {
             return (
                 <Link href={href} className={className} {...props}>
@@ -82,20 +118,32 @@ const components = {
         const codeHTML = highlight(children as string);
         return (
             <code
-                className="bg-muted text-foreground px-1 py-0.5 rounded"
+                className="bg-gray-100 dark:bg-zinc-800 text-gray-900 dark:text-zinc-100 px-1 py-0.5 rounded"
                 dangerouslySetInnerHTML={{ __html: codeHTML }}
                 {...props}
             />
         );
     },
     Table: ({ data }: { data: { headers: string[]; rows: string[][] } }) => (
-        <table className="w-full border-collapse border border-border">
+        <table
+            className="text-gray-800 dark:text-zinc-300"
+            style={{
+                borderCollapse: "collapse",
+                width: "100%",
+                marginTop: "1rem",
+                marginBottom: "1rem",
+            }}
+        >
             <thead>
-                <tr className="bg-muted">
+                <tr style={{ backgroundColor: "#E5E7EB" }}>
                     {data.headers.map((header, index) => (
                         <th
                             key={index}
-                            className="border border-border px-4 py-2 text-left"
+                            style={{
+                                border: "1px solid #D1D5DB",
+                                padding: "0.5rem",
+                                textAlign: "left",
+                            }}
                         >
                             {header}
                         </th>
@@ -108,7 +156,10 @@ const components = {
                         {row.map((cell, cellIndex) => (
                             <td
                                 key={cellIndex}
-                                className="border border-border px-4 py-2"
+                                style={{
+                                    border: "1px solid #D1D5DB",
+                                    padding: "0.5rem",
+                                }}
                             >
                                 {cell}
                             </td>
@@ -120,7 +171,12 @@ const components = {
     ),
     blockquote: (props: BlockquoteProps) => (
         <blockquote
-            className="ml-1 border-l-4 border-muted pl-4 text-muted-foreground"
+            className="text-gray-700 dark:text-zinc-300"
+            style={{
+                marginLeft: "0.075em",
+                borderLeft: "3px solid #D1D5DB",
+                paddingLeft: "1rem",
+            }}
             {...props}
         />
     ),
@@ -131,5 +187,5 @@ declare global {
 }
 
 export function useMDXComponents(): MDXProvidedComponents {
-    return components;
+    return { ...components };
 }

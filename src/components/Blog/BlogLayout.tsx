@@ -27,7 +27,7 @@ const BlogLayout = ({
                 )}
             </div>
 
-            {children}
+            <article className="all-[unset]">{children}</article>
         </div>
     );
 };
