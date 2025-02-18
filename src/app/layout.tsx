@@ -4,7 +4,7 @@ import { ViewTransitions } from "next-view-transitions";
 import { jetbrainsMono, pretendard } from "@/lib/fonts";
 
 export const metadata: Metadata = {
-    title: "blog",
+    title: "@dohyeoplim",
     description: "dohyeoplim's blog",
 };
 
