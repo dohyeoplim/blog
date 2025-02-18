@@ -3,27 +3,27 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
 import Time from "../Time";
-import { Post } from "@/types/post";
+import PostMeta from "@/types/PostMeta";
 
 interface PreviewListItemProps {
-    post: Post;
+    meta: PostMeta;
 }
 
-const PreviewListItem = ({ post }: PreviewListItemProps) => {
+const PreviewListItem = ({ meta }: PreviewListItemProps) => {
     return (
         <li role="article" className="list-none flex flex-col space-y-2">
             <div className="flex flex-col items-start justify-start space-y-2">
                 <header>
-                    <Link href={`/blog/${post.slug}`}>
+                    <Link href={`/blog/${meta.slug}`}>
                         <h2 className="text-xl font-semibold hover:underline cursor-pointer">
-                            {post.title}
+                            {meta.title}
                         </h2>
                     </Link>
                 </header>
 
-                {post.excerpt && (
+                {meta.description && (
                     <p className="text-sm text-secondary-foreground">
-                        {post.excerpt}
+                        {meta.description}
                     </p>
                 )}
             </div>
@@ -31,12 +31,12 @@ const PreviewListItem = ({ post }: PreviewListItemProps) => {
             <div className="w-full flex items-center justify-between">
                 <div className="flex space-x-3">
                     <div>
-                        <Time date={post.date} />
+                        <Time date={meta.date} />
                     </div>
 
-                    {post.tags && post.tags.length > 0 && (
+                    {meta.tags && meta.tags.length > 0 && (
                         <div className="flex space-x-2">
-                            {post.tags.map((tag, index) => (
+                            {meta.tags.map((tag, index) => (
                                 <Badge key={index} variant="outline">
                                     {tag}
                                 </Badge>
@@ -44,7 +44,7 @@ const PreviewListItem = ({ post }: PreviewListItemProps) => {
                         </div>
                     )}
                 </div>
-                <Link href={`/blog/${post.slug}`}>
+                <Link href={`/blog/${meta.slug}`}>
                     <Button variant="ghost">
                         <ArrowRight />
                     </Button>

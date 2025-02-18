@@ -1,17 +1,20 @@
+import path from "path";
+import { getAllMdxMetadata } from "@/lib/mdx-loader";
 import PreviewListItem from "./PreviewListItem";
-import { Post } from "@/types/post";
+import PostMeta from "@/types/PostMeta";
 
-interface PreviewListProps {
-    posts?: Post[];
-}
+const PreviewList = async () => {
+    const POST_DIR = path.join(process.cwd(), "src", "app", "blog");
+    const posts: PostMeta[] = getAllMdxMetadata(POST_DIR);
 
-const PreviewList = ({ posts }: PreviewListProps) => {
-    if (!posts) return <div>Loading...</div>;
+    posts.sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
     return (
         <section className="space-y-12">
-            {posts.map((post) => (
-                <PreviewListItem key={post.slug} post={post} />
+            {posts.map((meta) => (
+                <PreviewListItem key={meta.slug} meta={meta} />
             ))}
         </section>
     );
