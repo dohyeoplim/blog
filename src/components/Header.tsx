@@ -5,7 +5,7 @@ interface HeaderProps {
 // TODO - metadata based header title
 const Header: React.FC<HeaderProps> = ({ title = "Blog." }) => {
     return (
-        <header className="pt-16">
+        <header className="pt-16 mb-8">
             <h1 className="text-4xl font-bold">{title}</h1>
         </header>
     );
