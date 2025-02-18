@@ -12,7 +12,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="antialiased dark min-h-screen">
+        <html lang="en" className="antialiased min-h-screen">
             <body className="max-w-2xl mx-auto">
                 <main>{children}</main>
                 {/* Footer */}
