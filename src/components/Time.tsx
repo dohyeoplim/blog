@@ -46,14 +46,16 @@ const Time: React.FC<TimeProps> = ({ date }) => {
     const parsedDate = dayjs(date);
 
     if (!parsedDate.isValid()) {
-        return <time className="text-zinc-400">유효하지 않은 날짜</time>;
+        return (
+            <time className="text-muted-foreground">유효하지 않은 날짜</time>
+        );
     }
 
     const daysDiff = dayjs().diff(parsedDate, "day");
     const formattedTime =
         daysDiff >= 7 ? parsedDate.format("YYYY.MM.DD") : parsedDate.fromNow();
 
-    return <time className="text-zinc-400">{formattedTime}</time>;
+    return <time className="text-muted-foreground">{formattedTime}</time>;
 };
 
 export default Time;
