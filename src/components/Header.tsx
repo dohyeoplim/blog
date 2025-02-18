@@ -7,14 +7,22 @@ import Quote from "./Quote";
 
 interface HeaderProps {
     title?: string;
+    bottomPadding?: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ title = "" }) => {
+const Header: React.FC<HeaderProps> = ({
+    title = "",
+    bottomPadding = true,
+}) => {
     const pathname = usePathname();
     const isHome = pathname === "/";
 
     return (
-        <header className="pt-24 mb-16 w-full flex justify-between items-center">
+        <header
+            className={`pt-24 w-full flex justify-between items-center ${
+                bottomPadding ? "pb-12" : ""
+            }`}
+        >
             <div>
                 {isHome && <Quote />}
                 <h1 className="text-4xl font-bold">
