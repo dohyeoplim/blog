@@ -119,6 +119,7 @@ const components = {
         return (
             <code
                 className="bg-gray-100 dark:bg-zinc-800 text-gray-900 dark:text-zinc-100 px-1 py-0.5 rounded"
+                style={{ fontFamily: "monospace" }}
                 dangerouslySetInnerHTML={{ __html: codeHTML }}
                 {...props}
             />
