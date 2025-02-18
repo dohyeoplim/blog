@@ -1,12 +1,12 @@
 // TODO - Metadata
 
-import PreviewList from "@/components/Blog/PreviewList";
 import Header from "@/components/Header";
+import PreviewList from "@/components/Blog/PreviewList";
 
 const Home = () => {
     return (
         <>
-            <Header title="Home" />
+            <Header />
 
             <PreviewList />
         </>

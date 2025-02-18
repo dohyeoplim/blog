@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Link } from "next-view-transitions";
 import { ModeToggle } from "./ThemeSwitch";
+import Quote from "./Quote";
 
 interface HeaderProps {
     title?: string;
@@ -15,6 +16,7 @@ const Header: React.FC<HeaderProps> = ({ title = "" }) => {
     return (
         <header className="pt-24 mb-16 w-full flex justify-between items-center">
             <div>
+                {isHome && <Quote />}
                 <h1 className="text-4xl font-bold">
                     {isHome ? (
                         <span style={{ viewTransitionName: "name" }}>
