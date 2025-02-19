@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { JetBrains_Mono } from "next/font/google";
+import { Fira_Code } from "next/font/google";
 
 /*
 Pretendard
@@ -19,16 +19,16 @@ export const pretendard = localFont({
 });
 
 /*
-JetBrains Mono
+Fira Code
 
-Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+Copyright 2014-2020 The Fira Code Project Authors (https://github.com/tonsky/FiraCode)
 This Font Software is licensed under the SIL Open Font License, Version 1.1 . This license is copied below, and is also available with a FAQ at: https://openfontlicense.org
 
 SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
  */
-export const jetbrainsMono = JetBrains_Mono({
+export const firaCode = Fira_Code({
     subsets: ["latin"],
     display: "swap",
     weight: ["400", "700"],
-    variable: "--font-jetbrains-mono",
+    variable: "--font-fira-code",
 });
