@@ -23,7 +23,18 @@ const MDXComponents = {
             </a>
         );
     },
-    code: CodeBlock,
+    code: (props: React.ComponentPropsWithoutRef<"code">) => {
+        // CodeBlock
+        if (props.className && props.className.startsWith("language-")) {
+            return <CodeBlock {...props} />;
+        }
+        // Inline code
+        return (
+            <code className="bg-gray-100 dark:bg-gray-800 rounded font-mono px-1 py-0.5">
+                {props.children}
+            </code>
+        );
+    },
     pre: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 };
 
