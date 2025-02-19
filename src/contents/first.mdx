@@ -1,0 +1,228 @@
+import BlogLayout from "@/components/Blog/BlogLayout";
+
+export const metadata = {
+    title: "첫 블로그 글",
+    description: "이 블로그를 어떻게 만들었을까~",
+    date: "2025-02-19T03:02:14",
+    tags: ["Frontend", "Next.js"],
+    slug: "first",
+};
+
+<BlogLayout metadata={metadata}>
+
+👋
+
+예전부터 공부하는 거나 일상 블로그 하나 써야지~ 생각 하다가 드디어 만들었다. 어떻게 만들었는지 소개해보겠다
+
+code: [🔗](https://github.com/dohyeoplim/blog)
+
+## 🚀 뭐로 만들었냐면...
+
+-   [Next.js](https://nextjs.org/)
+-   [MDX(@next/mdx)](https://nextjs.org/docs/pages/building-your-application/configuring/mdx) ⭐️️
+
+Next.js로 제작하였고, 스타일링은 [Tailwind CSS](http://tailwindcss.com/)를 썼다.
+버튼 같은 컴포넌트들은 [shadcn/ui](https://ui.shadcn.com/)를 썼다.
+
+## 🧑‍💻 이 블로그는 MDX를 쓴다.
+
+원래는 글을 마크다운이라는 포맷으로 글을 쓰려고 했는데, 좀 알아보다 보니 알게된 [MDX](https://mdxjs.com/)를 쓰기로 했다.
+
+**MDX**: Markdown + JSX => 마크다운에 JSX를 쓸 수 있는 것. 쉽게 말해 마크다운에 리액트 컴포넌트를 곧장 쓸 수 있는 것.
+
+그럼 이 MDX를 어떻게 랜더링하냐:
+
+contentlayer, next-mdx-remote 등 등 여러 라이브러리가 있었지만, 저는 **@next/mdx**를 쓰기로 했다.
+
+@next/mdx는 Next.js에서 공식적으로 지원하는 패키지이기에 적용이 아주 쉽다. 특히 MDX파일 자체를 page로 만들 인식한다는 점이 특징임(React component로 자동 변환함).
+
+next-mdx-remote나 contentlayer를 쓰면 type-safety에서 유듦하고 기능이 좀 좀 많지만, 이 작은 블로그는 **@next/mdx**만으로도 충분하다고 판단함.
+
+📄 공식문서: [https://nextjs.org/docs/](https://nextjs.org/docs/pages/building-your-application/configuring/mdx)
+
+### ⚒️ MDX파일들을 한 번에 읽고 SSG로 만듦
+
+@next/mdx를 쓰니까 원래는 블로그 글을 `app/blog/[블로그 제목]/`안에 다 넣어서 file-system based routing으로 만들려고 했다.
+
+그런데 글을 쓸 때마다 `app/`안에 폴더 만들고 정리하기가 복잡해 보여서, 블로그 글들은 모두 `contents/`폴더에 모아두고, 이 폴더 안을 한꺼번에 읽어서 static pages로 만들어주는 방법을 썼답니다
+
+```plaintext
+...
+README.md
+public/
+src/
+├── app/
+│   ├── blog/
+│   │   ├── [slug]/
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── Blog/
+│   │   ├── BlogLayout.tsx
+│   │   ├── CodeBlock.tsx
+│   │   ├── PreviewList.tsx
+│   │   └── PreviewListItem.tsx
+│   ├── Header.tsx
+│   ├── ThemeProvider.tsx
+│   ├── ThemeSwitch.tsx
+│   ├── Time.tsx
+│   └── ui/
+│       ├── button.tsx
+│       ├── card.tsx
+│       └── dropdown-menu.tsx
+├── contents/
+│   └── first.mdx
+├── lib/
+│   ├── fonts.ts
+│   ├── mdxUtils.ts
+│   └── utils.ts
+└── types/
+    └── PostMeta.ts
+...
+```
+
+우선 @next/mdx가 mdx 파일 자체를 react component로 변환해주기 때문에, `src/app/blog/[slug]/page.tsx`는 다음과 같이 간단하게 쓸 수 있다!
+
+```tsx
+const BlogContentPage = async ({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}) => {
+    const slug = (await params).slug;
+
+    const { default: Post } = await import(`@/contents/${slug}.mdx`);
+
+    return <Post />;
+};
+```
+
+여기서 `slug`는 파일 이름이다. 아래와 같은 방법으로 `contents/`폴더에서 각 파일의 파일명을 우선 읽고, 이를 한 object에 담아 parameter로 넘겨주면 된다.
+
+```ts
+interface SlugResult {
+    slugs: { slug: string }[];
+}
+
+async function generateBlogContentsSlugs(): Promise<SlugResult> {
+    const CONTENT_DIR = path.join(process.cwd(), "src/contents");
+
+    const mdxFiles = fs
+        .readdirSync(CONTENT_DIR)
+        .filter((file) => file.endsWith(".mdx"))
+        .map((file) => ({
+            slug: path.parse(file).name,
+        }));
+
+    return { slugs: mdxFiles };
+}
+```
+
+> FS 모듈: file system을 다루는 내장 모듈 <br/>
+> 여기서는 `readdirSync`를 통해 **동기적으로** 디렉터리를 읽었음. <br/>
+> +) 지금은 build time에 실행되는 코드이기 때문에 동기적으로 처리해도 문제가 없지만, 추후에 runtime에서 실행하고 싶을 경우에는 `readdir`을 써서 부하를 신경쓰자.
+
+<br />
+
+위에서 추출된 slug를 parameter로 넘길 때에는 `generateStaticParams`를 이용했다.
+
+> `generateStaticParams`: Next.js API로, 옛날 `getStaticProps`와 유사함. <br/> build time에 URL parameter 조합을 미리 산출 -> 산출된 pages를 static하게 렌더링
+
+> **주의할 점**: `generateStaticParams`는 build time에 실행된다! 따라서, runtime에 동적으로 data를 받아올 수 없음. 그래서, <u>Next.js API endpoint를 이용한 로직은 작동하지 않는다!!</u>
+
+빌드를 해보면 아래와 같이 블로그 글이 static path와 함께 SSG로 만들어진 것을 볼 수 있다
+
+```plaintext
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    1.78 kB         126 kB
+├ ○ /_not-found                          982 B           106 kB
+├ ○ /blog                                135 B           105 kB
+└ ● /blog/[slug]                         4.29 kB         128 kB
+    └ /blog/first
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+```
+
+### 🙂‍↕️ 블로그 글 목록을 만들어보자
+
+일단 블로그 글 파일명은 위의 방법에서 모두 알아냈었다. 그런데 파일명만으로는 블로그 글 목록을 만들기에 부족함.
+
+아까 mdx 파일에는 JSX(TSX)가 들어갈 수 있다고 했으니, 블로그 글 파일에 다음과 같이 metadata를 넣어주었다.
+
+```tsx
+export const metadata = {
+    title: "첫 블로그 글",
+    description: "이 블로그를 어떻게 만들었을까~",
+    date: "2025-02-19T03:02:14",
+    tags: ["Frontend", "Next.js"],
+};
+```
+
+이제 아까 파일명을 읽었던 거 처럼 파일 속 metadata를 파싱하면 될 것 같다! 나는 Regex를 썼다.
+
+```ts
+function extractMetadata(content: string): PostMeta | null {
+    const regex = /export\s+const\s+metadata\s*=\s*(\{[\s\S]*?\});/;
+    const match = content.match(regex);
+
+    if (!match?.[1]) return null;
+
+    return JSON5.parse(match[1]) as PostMeta;
+}
+```
+
+> **`JSON5.parse`를 쓴 이유**: JSON에서 지원하지 않는 single quote나 trailing comma가 포함됐을 경우를 쉽게 핸들링하기 위해 썼다<br />JSON5가 좀 더 유연하게 파싱해준다!
+
+이제 metadata를 읽고 미리보기 리스트 UI에 넣어주자. 리액트 배우면 가장 많이 쓰는 `map()`을 썼다.
+
+```tsx
+const PreviewList = async () => {
+    const { metadataList, error } = await getAllMdxMetadata("src/contents");
+    ...
+    return (
+        <section>
+            {metadataList.map((meta) => (
+                <PreviewListItem key={meta.slug} meta={meta} />
+            ))}
+        </section>
+    );
+};
+```
+
+### 🖼️ 블로그 꾸미기
+
+깔끔하고 미니멀?한 디자인을 만들어봤다. 보기 괜찮나
+
+홈화면에 있는 제목이 페이지 들어가면서 작게 바뀌는 애니메이션도 넣어봤다. 이건 `View Transition API`로 만들었다.
+framer-motion같은거 안쓰고도 예쁘게 만들 수 있다!
+
+참고: [View Transition API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API)
+
+이제 사파리도 지원되는 모양이다 🤤
+
+위에 코드 박스들은 [sugar-high](https://github.com/huozhi/sugar-high)라는 아주 가벼운 테마를 썼다. 설치하고 css variables만 추가하면 된다. 아래는 내가 사용한 색이다!
+
+```css
+:root {
+    --sh-class: #82aaff;
+    --sh-identifier: #c3e88d;
+    --sh-sign: #89ddff;
+    --sh-property: #ffcb6b;
+    --sh-entity: #f07178;
+    --sh-jsxliterals: #c792ea;
+    --sh-string: #c3e88d;
+    --sh-keyword: #f07178;
+    --sh-comment: #5c6370;
+}
+```
+
+### 끝으로
+
+기타 등등 코드는 모두 [여기](https://github.com/dohyeoplim/blog)에 올려두었으니 많은 피드백 바람~
+
+</BlogLayout>
