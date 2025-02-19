@@ -36,6 +36,20 @@ const MDXComponents = {
         );
     },
     pre: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+
+    blockquote: (props: React.ComponentPropsWithoutRef<"blockquote">) => (
+        <blockquote
+            style={{
+                margin: "1rem 0",
+                borderLeft: "4px solid #d1d5db",
+                paddingLeft: "1rem",
+                fontStyle: "normal",
+                quotes: "none",
+            }}
+        >
+            {props.children}
+        </blockquote>
+    ),
 };
 
 declare global {
