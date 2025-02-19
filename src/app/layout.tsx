@@ -3,6 +3,7 @@ import "./globals.css";
 import { ViewTransitions } from "next-view-transitions";
 import { pretendard, firaCode } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
     title: "dohyeoplim/blog",
@@ -28,7 +29,8 @@ export default function RootLayout({
                         enableSystem
                     >
                         <main>{children}</main>
-                        {/* Footer */}
+
+                        <Footer />
                     </ThemeProvider>
                 </body>
             </html>
