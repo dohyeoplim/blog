@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ViewTransitions } from "next-view-transitions";
-import { jetbrainsMono, pretendard } from "@/lib/fonts";
+import { pretendard, firaCode } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
         <ViewTransitions>
             <html
                 lang="ko"
-                className={`antialiased min-h-screen ${pretendard.variable} ${jetbrainsMono.variable}`}
+                className={`antialiased min-h-screen ${pretendard.variable} ${firaCode.variable}`}
                 suppressHydrationWarning
             >
                 <body className={`max-w-2xl mx-auto ${pretendard.className}`}>
