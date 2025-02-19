@@ -29,15 +29,15 @@
         --chart-4: 210 16% 35%;
         --chart-5: 210 16% 30%;
         --radius: 0.5rem;
-        --sh-class: #2d5e9d;
-        --sh-identifier: #354150;
-        --sh-sign: #8996a3;
-        --sh-property: #0550ae;
-        --sh-entity: #249a97;
-        --sh-jsxliterals: #6266d1;
-        --sh-string: #00a99a;
-        --sh-keyword: #f47067;
-        --sh-comment: #a19595;
+        --sh-class: #82aaff;
+        --sh-identifier: #c3e88d;
+        --sh-sign: #89ddff;
+        --sh-property: #ffcb6b;
+        --sh-entity: #f07178;
+        --sh-jsxliterals: #c792ea;
+        --sh-string: #c3e88d;
+        --sh-keyword: #f07178;
+        --sh-comment: #5c6370;
     }
 
     .dark {
