@@ -24,6 +24,7 @@ const MDXComponents = {
         );
     },
     code: CodeBlock,
+    pre: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 };
 
 declare global {
