@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Link } from "next-view-transitions";
 import { ModeToggle } from "./ThemeSwitch";
 import Quote from "./Quote";
+import { ArrowLeft } from "lucide-react";
 
 interface HeaderProps {
     title?: string;
@@ -32,14 +33,19 @@ const Header: React.FC<HeaderProps> = ({
                             {MainTitle}
                         </span>
                     ) : (
-                        <Link
-                            href="/"
-                            className="text-sm sm:text-base font-semibold text-secondary-foreground hover:underline"
-                        >
-                            <span style={{ viewTransitionName: "name" }}>
-                                {MainTitle}
-                            </span>
-                        </Link>
+                        <div className="flex items-center space-x-1">
+                            <Link href="/">
+                                <ArrowLeft className="size-3 sm:size-4" />
+                            </Link>
+                            <Link
+                                href="/"
+                                className="text-sm sm:text-base font-semibold text-secondary-foreground hover:underline"
+                            >
+                                <span style={{ viewTransitionName: "name" }}>
+                                    {MainTitle}
+                                </span>
+                            </Link>
+                        </div>
                     )}
                 </h1>
                 {!isHome && (
