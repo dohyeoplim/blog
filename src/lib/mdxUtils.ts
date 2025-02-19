@@ -1,59 +1,67 @@
 import fs from "fs";
 import path from "path";
 import JSON5 from "json5";
-import BlogMeta from "@/types/PostMeta";
+import PostMeta from "@/types/PostMeta";
+
+interface MetadataResult {
+    metadataList: PostMeta[];
+    error?: string;
+}
 
 interface SlugResult {
     slugs: { slug: string }[];
     error?: string;
 }
 
-function extractMetadata(content: string): BlogMeta | null {
+function extractMetadata(content: string): PostMeta | null {
     const regex = /export\s+const\s+metadata\s*=\s*(\{[\s\S]*?\});/;
     const match = content.match(regex);
 
     if (!match?.[1]) return null;
 
     try {
-        return JSON5.parse(match[1]) as BlogMeta;
+        return JSON5.parse(match[1]) as PostMeta;
     } catch (error) {
         console.error("Error parsing metadata:", error);
         return null;
     }
 }
 
-function getMdxFilePaths(dir: string): string[] {
-    const results: string[] = [];
+export async function getAllMdxMetadata(
+    rootDir: string
+): Promise<MetadataResult> {
     try {
-        const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-        for (const entry of entries) {
-            const fullPath = path.join(dir, entry.name);
-            if (entry.isDirectory()) {
-                results.push(...getMdxFilePaths(fullPath));
-            } else if (entry.isFile() && fullPath.endsWith(".mdx")) {
-                results.push(fullPath);
-            }
+        if (!fs.existsSync(rootDir)) {
+            return { metadataList: [], error: "Content directory not found." };
         }
-    } catch (error) {
-        console.error(`Error reading directory ${dir}:`, error);
-    }
-    return results;
-}
 
-export function getAllMdxMetadata(rootDir: string): BlogMeta[] {
-    const mdxPaths = getMdxFilePaths(rootDir);
-    return mdxPaths
-        .map((filePath) => {
-            try {
-                const content = fs.readFileSync(filePath, "utf-8");
-                return extractMetadata(content);
-            } catch (error) {
-                console.error(`Error reading file ${filePath}:`, error);
-                return null;
-            }
-        })
-        .filter((meta): meta is BlogMeta => meta !== null);
+        const mdxFiles = fs
+            .readdirSync(rootDir)
+            .filter((file) => file.endsWith(".mdx"))
+            .map((file) => path.join(rootDir, file));
+
+        const metadataList: PostMeta[] = mdxFiles
+            .map((filePath) => {
+                try {
+                    const content = fs.readFileSync(filePath, "utf-8");
+                    return extractMetadata(content);
+                } catch (error) {
+                    console.error(`Error reading file ${filePath}:`, error);
+                    return null;
+                }
+            })
+            .filter((meta): meta is PostMeta => meta !== null);
+
+        return { metadataList: metadataList };
+    } catch (error: unknown) {
+        return {
+            metadataList: [],
+            error:
+                error instanceof Error
+                    ? error.message
+                    : "Unknown error occurred.",
+        };
+    }
 }
 
 export async function generateBlogContentsSlugs(): Promise<SlugResult> {

@@ -1,16 +1,13 @@
 import PreviewListItem from "./PreviewListItem";
-import PostMeta from "@/types/PostMeta";
+import { getAllMdxMetadata } from "@/lib/mdxUtils";
 
 const PreviewList = async () => {
-    const res = await fetch("http://localhost:3000/api/contents/metadata", {
-        cache: "no-store",
-    });
+    const { metadataList, error } = await getAllMdxMetadata("src/contents");
 
-    if (!res.ok) {
-        throw new Error("Failed to fetch metadata");
+    if (error) {
+        console.warn(`Failed to fetch metadata: ${error}`);
+        return [];
     }
-
-    const metadataList: PostMeta[] = await res.json();
 
     metadataList.sort((a, b) => {
         return new Date(b.date).getTime() - new Date(a.date).getTime();
