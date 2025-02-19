@@ -29,15 +29,19 @@ const PreviewListItem = ({ meta }: PreviewListItemProps) => {
             </div>
 
             <div className="w-full flex items-center justify-between">
-                <div className="flex space-x-3">
+                <div className="flex space-x-2 sm:space-x-3">
                     <div>
                         <Time date={meta.date} />
                     </div>
 
                     {meta.tags && meta.tags.length > 0 && (
-                        <div className="flex space-x-2">
+                        <div className="flex space-x-1 sm:space-x-2">
                             {meta.tags.map((tag, index) => (
-                                <Badge key={index} variant="outline">
+                                <Badge
+                                    key={index}
+                                    variant="outline"
+                                    className="text-xs"
+                                >
                                     {tag}
                                 </Badge>
                             ))}

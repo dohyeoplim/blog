@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({
         >
             <div>
                 {isHome && <Quote />}
-                <h1 className="text-4xl font-bold">
+                <h1 className="text-3xl sm:text-4xl font-bold">
                     {isHome ? (
                         <span style={{ viewTransitionName: "name" }}>
                             {MainTitle}
@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({
                     ) : (
                         <Link
                             href="/"
-                            className="text-base font-semibold text-secondary-foreground hover:underline"
+                            className="text-sm sm:text-base font-semibold text-secondary-foreground hover:underline"
                         >
                             <span style={{ viewTransitionName: "name" }}>
                                 {MainTitle}
@@ -42,7 +42,9 @@ const Header: React.FC<HeaderProps> = ({
                         </Link>
                     )}
                 </h1>
-                {!isHome && <h1 className="text-4xl font-bold">{title}</h1>}
+                {!isHome && (
+                    <h1 className="text-3xl sm:text-4xl font-bold">{title}</h1>
+                )}
             </div>
 
             <div style={{ viewTransitionName: "mode" }}>

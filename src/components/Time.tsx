@@ -55,7 +55,11 @@ const Time: React.FC<TimeProps> = ({ date }) => {
     const formattedTime =
         daysDiff >= 7 ? parsedDate.format("YYYY.MM.DD") : parsedDate.fromNow();
 
-    return <time className="text-muted-foreground">{formattedTime}</time>;
+    return (
+        <time className="text-muted-foreground text-xs sm:text-sm">
+            {formattedTime}
+        </time>
+    );
 };
 
 export default Time;

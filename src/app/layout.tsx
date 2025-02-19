@@ -22,13 +22,15 @@ export default function RootLayout({
                 className={`antialiased min-h-screen ${pretendard.variable} ${firaCode.variable}`}
                 suppressHydrationWarning
             >
-                <body className={`max-w-2xl mx-auto ${pretendard.className}`}>
+                <body
+                    className={`w-full max-w-2xl mx-auto px-4 sm:px-6 md:px-8 ${pretendard.className}`}
+                >
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="system"
                         enableSystem
                     >
-                        <main>{children}</main>
+                        <main className="text-sm sm:text-base">{children}</main>
 
                         <Footer />
                     </ThemeProvider>
