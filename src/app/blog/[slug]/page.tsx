@@ -1,4 +1,4 @@
-import { generateBlogContentsSlugs } from "@/lib/generateParms";
+import { generateBlogContentsSlugs } from "@/lib/mdxUtils";
 
 const BlogContentPage = async ({
     params,
