@@ -1,6 +1,6 @@
-"use client";
+// "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ComponentPropsWithoutRef } from "react";
 import { highlight } from "sugar-high";
@@ -10,7 +10,7 @@ const CodeBlock = ({
     className = "",
     ...props
 }: ComponentPropsWithoutRef<"code">) => {
-    const [copied, setCopied] = useState(false);
+    // const [copied, setCopied] = useState(false);
 
     const language = className.replace("language-", "") || "txt";
 
@@ -18,15 +18,15 @@ const CodeBlock = ({
 
     const highlightedCode = highlight(codeString);
 
-    const handleCopy = async () => {
-        try {
-            await navigator.clipboard.writeText(codeString);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        } catch (error) {
-            console.error("Failed to copy:", error);
-        }
-    };
+    // const handleCopy = async () => {
+    //     try {
+    //         await navigator.clipboard.writeText(codeString);
+    //         setCopied(true);
+    //         setTimeout(() => setCopied(false), 2000);
+    //     } catch (error) {
+    //         console.error("Failed to copy:", error);
+    //     }
+    // };
 
     return (
         <div className="not-prose relative bg-zinc-900 text-white rounded-lg p-8">
@@ -34,12 +34,12 @@ const CodeBlock = ({
                 {language}
             </span>
 
-            <Button
+            {/* <Button
                 onClick={handleCopy}
                 className="absolute top-4 right-4 bg-zinc-700 hover:bg-zinc-600 text-white rounded"
             >
                 {copied ? "Copied!" : "Copy"}
-            </Button>
+            </Button> */}
 
             <div className="overflow-x-auto">
                 <pre className="p-0 m-0 bg-transparent">
