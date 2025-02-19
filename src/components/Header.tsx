@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({
                     ) : (
                         <Link
                             href="/"
-                            className="text-xl font-semibold text-secondary-foreground hover:underline"
+                            className="text-base font-semibold text-secondary-foreground hover:underline"
                         >
                             <span style={{ viewTransitionName: "name" }}>
                                 {MainTitle}
