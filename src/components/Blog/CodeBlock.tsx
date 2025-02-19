@@ -29,7 +29,7 @@ const CodeBlock = ({
     };
 
     return (
-        <div className="relative bg-zinc-900 text-white rounded-lg p-8 overflow-x-auto">
+        <div className="not-prose relative bg-zinc-900 text-white rounded-lg p-8 overflow-x-auto">
             <span className="absolute top-4 left-4 text-xs text-gray-400 uppercase">
                 {language}
             </span>

@@ -27,7 +27,7 @@ const BlogLayout = ({
                 )}
             </div>
 
-            <article className="all-[unset]">{children}</article>
+            <article className="prose dark:prose-invert">{children}</article>
         </div>
     );
 };
