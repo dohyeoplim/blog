@@ -58,7 +58,7 @@ export default {
             },
             fontFamily: {
                 sans: ["var(--font-pretendard)", "sans-serif"],
-                mono: ["var(--font-fira-code)", "monospace"],
+                mono: ["monospace"],
             },
         },
     },

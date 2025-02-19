@@ -43,7 +43,7 @@ const CodeBlock = ({
 
             <pre>
                 <code
-                    className="block whitespace-pre font-mono"
+                    className="block whitespace-pre-wrap font-mono"
                     dangerouslySetInnerHTML={{ __html: highlightedCode }}
                     {...props}
                 />
