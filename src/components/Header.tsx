@@ -16,6 +16,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
     const pathname = usePathname();
     const isHome = pathname === "/";
+    const MainTitle = "dohyeoplim/blog";
 
     return (
         <header
@@ -28,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({
                 <h1 className="text-4xl font-bold">
                     {isHome ? (
                         <span style={{ viewTransitionName: "name" }}>
-                            @dohyeoplim
+                            {MainTitle}
                         </span>
                     ) : (
                         <Link
@@ -36,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({
                             className="text-xl font-semibold text-secondary-foreground hover:underline"
                         >
                             <span style={{ viewTransitionName: "name" }}>
-                                @dohyeoplim
+                                {MainTitle}
                             </span>
                         </Link>
                     )}

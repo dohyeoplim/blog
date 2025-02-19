@@ -5,7 +5,7 @@ import { jetbrainsMono, pretendard } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-    title: "@dohyeoplim",
+    title: "dohyeoplim/blog",
     description: "dohyeoplim's blog",
 };
 
