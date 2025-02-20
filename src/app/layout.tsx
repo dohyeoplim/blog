@@ -4,6 +4,7 @@ import { ViewTransitions } from "next-view-transitions";
 import { pretendard, firaCode } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
+import Analytics from "@/components/Analytics";
 
 export const metadata: Metadata = {
     title: "dohyeoplim/blog",
@@ -57,6 +58,8 @@ export default function RootLayout({
                         <main className="text-sm sm:text-base">{children}</main>
 
                         <Footer />
+
+                        <Analytics />
                     </ThemeProvider>
                 </body>
             </html>
