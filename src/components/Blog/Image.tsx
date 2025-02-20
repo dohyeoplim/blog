@@ -24,6 +24,8 @@ const MDXImage = (props: ImageProps) => {
                         alt={props.leftImage.alt}
                         width={props.leftImage.width}
                         height={props.leftImage.height}
+                        placeholder="blur"
+                        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
                     />
                 </div>
                 <div style={{ width: "50%", position: "relative" }}>
@@ -32,6 +34,8 @@ const MDXImage = (props: ImageProps) => {
                         alt={props.rightImage.alt}
                         width={props.rightImage.width}
                         height={props.rightImage.height}
+                        placeholder="blur"
+                        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
                     />
                 </div>
             </div>
@@ -44,6 +48,8 @@ const MDXImage = (props: ImageProps) => {
                     alt={props.alt}
                     width={props.width}
                     height={props.height}
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
                 />
             </div>
         );
