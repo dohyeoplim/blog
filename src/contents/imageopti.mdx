@@ -1,0 +1,125 @@
+import BlogLayout from "@/components/Blog/BlogLayout";
+import Image from "@/components/Blog/Image";
+
+export const metadata = {
+    title: "🖼️ 이미지 최적화를 했어요",
+    description: "",
+    date: "2025-02-20T17:30:20",
+    tags: ["Frontend", "Next.js"],
+    slug: "imageopti",
+};
+
+<BlogLayout metadata={metadata}>
+
+겨울방학 이야기 글을 올리면서 문제가 있었답니다 🙀
+
+사진 용량이 너무 컸어요 ;;
+
+전부 압축을 해도 한 200MB 나오더라구여 😅
+
+인터넷이 느리면 잘 보이지 않을 수 있겠죠? 그래서 수정을 했어요
+
+## 🫠 무엇이 바뀌었는가
+
+개선 사항
+
+-   [Image component](https://nextjs.org/docs/app/api-reference/components/image) 이용 -> 이미지 로딩 최적화, **lazy loading**
+-   python으로 이미지 width/height 자동 지정
+
+> Lazy loading이란: 한 번에 모든 이미지를 로드하지 않고, 화면에 나타날 때 불러오는 것 <br />-> 처음 로딩이 빠름!
+
+<br />
+
+원래 이미지를 그냥 넣으면, 사진이 로드되면서 페이지가 깜빡이거나 깨지거든요
+
+> HTML이란 걸 아시는 분은 `<img>`를 생각하시면 됩니당 <br/>
+> 참고로 위 현상을 CLS, Cumulative Layout Shift라고 함
+
+근데 이번에 개선하면서, 아래처럼 이미지가 로드되기 전에도 미리 placeholder가 생기도록 바꾸었습니다.
+
+<Image
+    src="/blog/imageopti/250220-160426.png"
+    alt="250220-160426"
+    width={1397}
+    height={1598}
+/>
+
+다른 잘만든 사이트들 보면 이미지가 블러됐다가 로드되는 걸 보셨을텐데.. 그것도 이거랑 비슷한 거에용
+
+<br />
+
+### ⚡️ 그리고 로딩도 빨라짐
+
+<Image
+    leftImage={{
+        src: "/blog/imageopti/250220-162118.png",
+        alt: "250220-162118",
+        width: 1512,
+        height: 1788,
+    }}
+    rightImage={{
+        src: "/blog/imageopti/250220-162123.png",
+        alt: "250220-162123",
+        width: 1512,
+        height: 1788,
+    }}
+/>
+
+왼쪽이 before -> 오른쪽이 after
+
+잘보면 포맷이 `WebP`로 바뀌면서 용량도 크게 줄어든 걸 볼 수 있어요 ✨
+
+> ⚡️⚡️⚡️ <br />
+> 대략 90% 이상 전송량 감소(146 MB -> 13.6 MB) <br />
+> 로드 시간 2배 개선(6.10초 -> 3.01초)
+
+<br />
+
+## 👻 어떻게 했을까요
+
+### Image component
+
+```tsx
+<Image
+    src={props.src}
+    alt={props.alt}
+    width={props.width}
+    height={props.height}
+    placeholder="blur"
+    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
+/>
+```
+
+이런식으로 `blurDataURL`을 넣어주면 되는데, 이건 static하게 지정한 거에요.
+
+[png-pixel](https://png-pixel.com/) 사이트에서 받았구여,
+
+만약에 이미지마다 다르게 하려면 [sharp](https://sharp.pixelplumbing.com/)같은 걸 쓰셔서 low quality 이미지를 얻으시면 됩니당
+
+### 🐍 파이썬도 써봄..
+
+원래는:
+
+```plaintext
+마크다운 이미지 -> HTML <img>로 알아서 변환(@next/mdx 이용!)
+
+![이미지](/blog/xxx.png)
+-> <Image src="/blog/xxx.png" alt="이미지" width={3024} height={4032} />
+```
+
+이렇게 되도록 하고 싶었음
+
+근데, **Image component는 이미지의 크기를 알아야 사용할 수 있다**
+
+그래서.. MDX 파일에서 이미지를 파싱해 MDX 파일 자체에 Image component를 넣어주는 스크립트를 짰어욤~~ 코드는 [깃허브](https://github.com/dohyeoplim/blog/blob/main/set_image_sizes.py) 참고.
+
+<br />
+
+<Image
+    src="/blog/imageopti/250220-173025.png"
+    alt="250220-173025"
+    width={533}
+    height={516}
+/>
+
+</BlogLayout>
