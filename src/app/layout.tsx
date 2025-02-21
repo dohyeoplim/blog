@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { ViewTransitions } from "next-view-transitions";
 import { pretendard, firaCode } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
+
+import "./globals.css";
 
 export const metadata: Metadata = {
     title: "dohyeoplim/blog",

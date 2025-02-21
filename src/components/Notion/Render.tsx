@@ -3,6 +3,9 @@
 import dynamic from "next/dynamic";
 import { ExtendedRecordMap } from "notion-types";
 import Header from "../Header";
+
+import "prismjs/themes/prism-tomorrow.css";
+
 const NotionRenderer = dynamic(
     () => import("react-notion-x").then((mod) => mod.NotionRenderer),
     { ssr: false }
@@ -10,12 +13,13 @@ const NotionRenderer = dynamic(
 
 const dynamicComponents = {
     Code: dynamic(() =>
-        import("react-notion-x/build/third-party/code").then((mod) => mod.Code)
-    ),
-    Collection: dynamic(() =>
-        import("react-notion-x/build/third-party/collection").then(
-            (mod) => mod.Collection
-        )
+        import("react-notion-x/build/third-party/code").then(async (mod) => {
+            await Promise.all([
+                import("prismjs/components/prism-python.js"),
+                import("prismjs/components/prism-c.js"),
+            ]);
+            return mod.Code;
+        })
     ),
 };
 
@@ -31,7 +35,11 @@ const Renderer = ({ recordMap }: { recordMap: ExtendedRecordMap }) => {
             <NotionRenderer
                 recordMap={recordMap}
                 fullPage={true}
+                hideBlockId={true}
+                disableHeader={true}
+                showTableOfContents={false}
                 components={dynamicComponents}
+                className="prose prose-sm sm:prose-base dark:prose-invert"
             />
         </>
     );
