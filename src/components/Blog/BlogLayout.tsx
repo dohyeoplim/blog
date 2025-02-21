@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import PostMeta from "@/types/PostMeta";
 import { Badge } from "../ui/badge";
 import Time from "../Time";
+import Summarizer from "./Summarizer";
 
 const BlogLayout = ({
     children,
@@ -26,6 +27,8 @@ const BlogLayout = ({
                     </div>
                 )}
             </div>
+
+            <Summarizer text={metadata.textOnly} />
 
             <article className="prose prose-sm sm:prose-base dark:prose-invert">
                 {children}

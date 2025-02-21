@@ -6,6 +6,8 @@ export const metadata = {
     date: "2025-02-19T03:02:14",
     tags: ["Frontend", "Next.js"],
     slug: "first",
+    textOnly:
+        "Next.js와 MDX(@next/mdx)로 만든 블로그다. 스타일링은 Tailwind CSS를, 버튼 등 UI는 shadcn/ui를 사용했다. MDX를 사용하면 Markdown에 JSX를 바로 쓸 수 있어, 글 작성 시 리액트 컴포넌트를 쉽게 삽입할 수 있다. @next/mdx로 MDX 파일을 페이지처럼 인식시켜 SSG를 구성했으며, 글은 모두 `contents/` 폴더에 모아서 빌드 시에 파일명을 읽어와 정적으로 생성한다. 각 MDX 파일에는 메타데이터(export const metadata)를 포함해 제목, 설명, 태그, 작성 날짜 등을 관리한다. 이때 정규식과 JSON5.parse를 이용해 해당 파일 내용에서 메타데이터를 추출했다. 이렇게 얻은 정보로 블로그 글 목록을 만든 뒤, SSG(`generateStaticParams`)를 통해 빌드 시에 모든 글을 미리 렌더링한다. UI 측면에서는 CSS 변수를 이용해 코드 하이라이팅(sugar-high)을 적용했고, View Transition API로 페이지 전환 시 간단한 애니메이션 효과를 넣었다. 전체 코드는 깃허브(https://github.com/dohyeoplim/blog)에 공개되어 있으니 참고 바란다.",
 };
 
 <BlogLayout metadata={metadata}>

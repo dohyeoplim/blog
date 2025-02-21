@@ -4,4 +4,5 @@ export default interface PostMeta {
     date: string;
     tags?: string[];
     slug: string;
+    textOnly: string;
 }
