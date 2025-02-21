@@ -49,7 +49,9 @@ const Header: React.FC<HeaderProps> = ({
                     )}
                 </h1>
                 {!isHome && (
-                    <h1 className="text-3xl sm:text-4xl font-bold">{title}</h1>
+                    <h1 className="text-3xl sm:text-4xl font-bold mt-2">
+                        {title}
+                    </h1>
                 )}
             </div>
 
