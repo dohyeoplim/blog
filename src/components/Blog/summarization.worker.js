@@ -60,7 +60,7 @@ self.addEventListener("message", async (event) => {
             max_new_tokens: 120,
             min_new_tokens: 100,
             early_stopping: true,
-            length_penalty: 2,
+            length_penalty: 1.5,
             num_beams: 6,
             do_sample: true,
             top_k: 50,
