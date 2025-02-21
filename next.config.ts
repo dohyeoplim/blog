@@ -15,6 +15,23 @@ const nextConfig: NextConfig = {
         };
         return config;
     },
+
+    images: {
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "www.notion.so",
+                port: "",
+                pathname: "/images/**",
+            },
+            {
+                protocol: "https",
+                hostname: "images.unsplash.com",
+                port: "",
+                pathname: "/**",
+            },
+        ],
+    },
 };
 
 const withMDX = createMDX({});
