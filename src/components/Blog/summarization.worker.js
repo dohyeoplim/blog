@@ -23,9 +23,7 @@ class PipelineSingleton {
                             const percentage =
                                 (progressInfo.loaded / progressInfo.total) *
                                 100;
-                            progressMessage = `Progress: ${percentage.toFixed(
-                                0
-                            )}%`;
+                            progressMessage = `${percentage.toFixed(0)}%`;
                         } else {
                             progressMessage = progressInfo
                                 ? JSON.stringify(progressInfo)

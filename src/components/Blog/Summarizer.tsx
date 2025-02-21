@@ -31,7 +31,7 @@ const Summarizer = ({ text }: SummarizerProps) => {
 
                 if (status === "progress") {
                     setProgressMsg(message || "");
-                    const match = message.match(/Progress:\s?(\d+)%/);
+                    const match = message.match(/(\d+)%/);
                     if (match) {
                         setProgressValue(Number(match[1]));
                     } else {
