@@ -8,6 +8,7 @@ export interface PageInfo {
     cover: string | null;
     publishedDate: string;
     excerpt?: string;
+    tags?: string[];
 }
 
 export interface PageListResponse {
@@ -41,6 +42,10 @@ const parsePageProperties = (page: PageObjectResponse): PageInfo => {
             : cover?.type === "file"
             ? cover.file.url
             : null;
+    const tags =
+        properties.Tags?.type === "multi_select"
+            ? properties.Tags.multi_select?.map((tag) => tag.name) || []
+            : [];
 
     return {
         id: page.id.replace(/-/g, ""),
@@ -48,6 +53,7 @@ const parsePageProperties = (page: PageObjectResponse): PageInfo => {
         cover: coverUrl,
         publishedDate,
         excerpt,
+        tags,
     };
 };
 
