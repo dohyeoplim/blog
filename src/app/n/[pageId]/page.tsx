@@ -10,6 +10,9 @@ export async function generateStaticParams() {
     return results.map((page) => ({ pageId: page.id }));
 }
 
+export const revalidate = 60;
+export const dynamicParams = true;
+
 const NotionPage = async ({
     params,
 }: {
