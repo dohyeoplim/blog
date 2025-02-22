@@ -15,7 +15,7 @@ const Home = () => {
                     <h2 className="text-lg font-semibold">✏️ 공부 기록</h2>
                     <div className="w-full flex items-center justify-between">
                         <p className="text-sm text-secondary-foreground mt-2">
-                            재밌는 거도 많아요
+                            재밌는 것도 많아요
                         </p>
                         <ArrowRight size={16} />
                     </div>
