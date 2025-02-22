@@ -20,11 +20,11 @@ const NotionPage = async ({
 }) => {
     const { pageId } = await params;
     try {
-        const page = await getPageRecordMap(pageId);
-        if (!page || Object.keys(page).length === 0) {
+        const { recordMap, metadata } = await getPageRecordMap(pageId);
+        if (!recordMap || Object.keys(recordMap).length === 0) {
             return <NotFound />;
         }
-        return <Renderer recordMap={page} />;
+        return <Renderer recordMap={recordMap} metadata={metadata} />;
     } catch (error) {
         console.error("페이지 데이터를 불러오는 도중 오류 발생: ", error);
         return <NotFound />;

@@ -3,6 +3,9 @@
 import dynamic from "next/dynamic";
 import { ExtendedRecordMap } from "notion-types";
 import Header from "../Header";
+import { PageInfo } from "@/lib/notion/notion-integration";
+import Time from "../Time";
+import { Badge } from "../ui/badge";
 
 import "prismjs/themes/prism-tomorrow.css";
 
@@ -23,14 +26,32 @@ const dynamicComponents = {
     ),
 };
 
-const Renderer = ({ recordMap }: { recordMap: ExtendedRecordMap }) => {
-    const title =
-        recordMap?.block[Object.keys(recordMap.block)[0]]?.value?.properties
-            ?.title[0][0];
-
+const Renderer = ({
+    recordMap,
+    metadata,
+}: {
+    recordMap: ExtendedRecordMap;
+    metadata: PageInfo;
+}) => {
     return (
         <>
-            <Header title={title || "Blog"} />
+            <Header title={metadata.title || "Blog"} bottomPadding={false} />
+
+            <div className="flex items-center justify-start space-x-2 sm:space-x-3 mt-4 mb-8">
+                <p>
+                    <Time date={metadata.publishedDate} />
+                </p>
+
+                {metadata.tags && metadata.tags.length > 0 && (
+                    <div className="flex space-x-1 sm:space-x-2">
+                        {metadata.tags.map((tag, index) => (
+                            <Badge key={index} variant="outline">
+                                {tag}
+                            </Badge>
+                        ))}
+                    </div>
+                )}
+            </div>
 
             <NotionRenderer
                 recordMap={recordMap}

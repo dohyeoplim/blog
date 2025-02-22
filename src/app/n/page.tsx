@@ -1,6 +1,5 @@
 import { getPublishedPages } from "@/lib/notion/notion-integration";
 import { Link } from "next-view-transitions";
-import Image from "next/image";
 import Header from "@/components/Header";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";

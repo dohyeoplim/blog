@@ -97,13 +97,16 @@ export const getPageMetadata = async (pageId: string): Promise<PageInfo> => {
 
 export const getPageRecordMap = async (pageId: string) => {
     try {
-        const page = await notion.getPage(pageId);
-        if (!page || Object.keys(page).length === 0) {
+        const recordMap = await notion.getPage(pageId);
+        if (!recordMap || Object.keys(recordMap).length === 0) {
             throw new Error(
                 `페이지 데이터를 찾을 수 없습니다. (pageId: ${pageId})`
             );
         }
-        return page;
+
+        const metadata = await getPageMetadata(pageId);
+
+        return { recordMap, metadata };
     } catch (error) {
         console.error("RecordMap 로드 시 에러:", error);
         throw error;
