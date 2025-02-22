@@ -60,7 +60,7 @@ const Renderer = ({
                 disableHeader={true}
                 showTableOfContents={false}
                 components={dynamicComponents}
-                className="prose prose-sm sm:prose-base dark:prose-invert"
+                className="prose prose-img:rounded-md prose-sm dark:prose-invert"
             />
         </>
     );
