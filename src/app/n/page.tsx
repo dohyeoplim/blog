@@ -2,52 +2,70 @@ import { getPublishedPages } from "@/lib/notion/notion-integration";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 import Header from "@/components/Header";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Time from "@/components/Time";
+import { Badge } from "@/components/ui/badge";
+
+export const revalidate = 60;
 
 const PublishedNotionPages = async () => {
     const { results: pages } = await getPublishedPages();
-
     return (
         <>
-            <Header title="✏️ 공부" />
-
-            <div className="grid gap-8 md:grid-cols-2">
+            <Header />
+            <section className="space-y-12">
                 {pages.map((page) => (
                     <article
                         key={page.id}
-                        className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+                        role="article"
+                        className="list-none flex flex-col space-y-2"
                     >
-                        <Link href={`/n/${page.id}`}>
-                            <div className="relative h-48">
-                                {page.cover && (
-                                    <Image
-                                        src={page.cover}
-                                        alt={page.title}
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 100vw, 50vw"
-                                    />
-                                )}
-                            </div>
+                        <div className="flex flex-col items-start justify-start space-y-2">
+                            <header>
+                                <Link href={`/n/${page.id}`}>
+                                    <h2 className="text-xl font-semibold hover:underline cursor-pointer">
+                                        {page.title}
+                                    </h2>
+                                </Link>
+                            </header>
 
-                            <div className="p-6">
-                                <time className="text-sm text-gray-500">
-                                    {new Date(
-                                        page.publishedDate
-                                    ).toLocaleDateString()}
-                                </time>
-                                <h2 className="text-2xl font-semibold mt-2 mb-3">
-                                    {page.title}
-                                </h2>
-                                {page.excerpt && (
-                                    <p className="text-gray-600 line-clamp-3">
-                                        {page.excerpt}
-                                    </p>
+                            {page.excerpt && (
+                                <p className="text-sm text-secondary-foreground">
+                                    {page.excerpt}
+                                </p>
+                            )}
+                        </div>
+
+                        <div className="w-full flex items-center justify-between">
+                            <div className="flex space-x-2 sm:space-x-3">
+                                <div>
+                                    <Time date={page.publishedDate} />
+                                </div>
+
+                                {page.tags && page.tags.length > 0 && (
+                                    <div className="flex space-x-1 sm:space-x-2">
+                                        {page.tags.map((tag, index) => (
+                                            <Badge
+                                                key={index}
+                                                variant="outline"
+                                                className="text-xs"
+                                            >
+                                                {tag}
+                                            </Badge>
+                                        ))}
+                                    </div>
                                 )}
                             </div>
-                        </Link>
+                            <Link href={`/n/${page.id}`}>
+                                <Button variant="ghost">
+                                    <ArrowRight />
+                                </Button>
+                            </Link>
+                        </div>
                     </article>
                 ))}
-            </div>
+            </section>
         </>
     );
 };
