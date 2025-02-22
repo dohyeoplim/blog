@@ -49,6 +49,9 @@ const nextConfig: NextConfig = {
                 pathname: "/**",
             },
         ],
+        minimumCacheTTL: 60,
+        dangerouslyAllowSVG: false,
+        contentSecurityPolicy: "default-src 'self'",
     },
 };
 
