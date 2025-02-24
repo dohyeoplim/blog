@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 const Me = () => {
     return (
         <>
-            <Header title="About Me" />
+            <Header title="👋 About Me" />
 
             <main>
                 <ProfileCard imageSrc="/static/images/profile.jpg">
@@ -54,7 +54,7 @@ const Me = () => {
                     </div>
                 </ProfileCard>
 
-                <div className="mt-16 md:text-7xl text-5xl font-extralight flex flex-col space-y-4 cursor-default">
+                <div className="mt-24 md:text-7xl text-5xl font-extralight flex flex-col space-y-4 cursor-default">
                     <p className="hover:scale-[105%] transition-transform duration-300 ease-in-out">
                         <span className="font-semibold">E</span>xecute,
                     </p>
@@ -69,7 +69,7 @@ const Me = () => {
                     </p>
                 </div>
 
-                <div className="mt-16 border-none shadow-none prose dark:prose-invert">
+                <div className="mt-24 border-none shadow-none prose dark:prose-invert">
                     <h2>Projects</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
