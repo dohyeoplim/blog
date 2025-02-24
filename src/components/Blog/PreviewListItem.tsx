@@ -11,7 +11,7 @@ interface PreviewListItemProps {
 
 const PreviewListItem = ({ meta }: PreviewListItemProps) => {
     return (
-        <li role="article" className="list-none flex flex-col space-y-2">
+        <li role="article" className="list-none flex flex-col space-y-2 pl-4">
             <div className="flex flex-col items-start justify-start space-y-2">
                 <header>
                     <Link href={`/blog/${meta.slug}`}>
