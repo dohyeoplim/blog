@@ -1,4 +1,3 @@
-import { SVGProps, FC } from "react";
 import Image from "next/image";
 
 interface ProfileCardProps {
