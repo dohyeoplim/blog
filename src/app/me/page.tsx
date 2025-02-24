@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 const Me = () => {
     return (
         <>
-            <Header title="Me." />
+            <Header title="About Me" />
 
             <main>
                 <ProfileCard imageSrc="/static/images/profile.jpg">
