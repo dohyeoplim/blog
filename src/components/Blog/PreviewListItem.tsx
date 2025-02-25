@@ -1,9 +1,8 @@
 import { Link } from "next-view-transitions";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
-import Time from "../Time";
 import PostMeta from "@/types/PostMeta";
+import PostMetaInfo from "@/components/Common/PostMetaInfo";
 
 interface PreviewListItemProps {
     meta: PostMeta;
@@ -29,25 +28,11 @@ const PreviewListItem = ({ meta }: PreviewListItemProps) => {
             </div>
 
             <div className="w-full flex items-center justify-between">
-                <div className="flex space-x-2 sm:space-x-3">
-                    <div>
-                        <Time date={meta.date} />
-                    </div>
-
-                    {meta.tags && meta.tags.length > 0 && (
-                        <div className="flex space-x-1 sm:space-x-2">
-                            {meta.tags.map((tag, index) => (
-                                <Badge
-                                    key={index}
-                                    variant="outline"
-                                    className="text-xs"
-                                >
-                                    {tag}
-                                </Badge>
-                            ))}
-                        </div>
-                    )}
-                </div>
+                <PostMetaInfo
+                    date={meta.date}
+                    tags={meta.tags}
+                    badgeClassName="text-xs"
+                />
                 <Link href={`/blog/${meta.slug}`}>
                     <Button variant="ghost">
                         <ArrowRight />

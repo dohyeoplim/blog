@@ -1,8 +1,7 @@
 import Header from "@/components/Header";
 import PostMeta from "@/types/PostMeta";
-import { Badge } from "../ui/badge";
-import Time from "../Time";
 import Summarizer from "./Summarizer";
+import PostMetaInfo from "@/components/Common/PostMetaInfo";
 
 const BlogLayout = ({
     children,
@@ -12,21 +11,7 @@ const BlogLayout = ({
         <div>
             <Header title={metadata?.title} bottomPadding={false} />
 
-            <div className="flex items-center justify-start space-x-2 sm:space-x-3 mt-4 mb-8">
-                <p>
-                    <Time date={metadata.date} />
-                </p>
-
-                {metadata.tags && metadata.tags.length > 0 && (
-                    <div className="flex space-x-1 sm:space-x-2">
-                        {metadata.tags.map((tag, index) => (
-                            <Badge key={index} variant="outline">
-                                {tag}
-                            </Badge>
-                        ))}
-                    </div>
-                )}
-            </div>
+            <PostMetaInfo date={metadata.date} tags={metadata.tags} />
 
             <Summarizer text={metadata.textOnly} />
 
