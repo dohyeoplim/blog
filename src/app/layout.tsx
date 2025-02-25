@@ -57,12 +57,6 @@ export default function RootLayout({
                 className={`antialiased min-h-screen ${pretendard.variable} ${firaCode.variable}`}
                 suppressHydrationWarning
             >
-                <head>
-                    <meta
-                        name="naver-site-verification"
-                        content="ab717afc0437675b652ce93a8731bce6191113e0"
-                    />
-                </head>
                 <body
                     className={`w-full max-w-2xl mx-auto px-4 sm:px-6 md:px-8 ${pretendard.className}`}
                 >
