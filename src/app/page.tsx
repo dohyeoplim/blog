@@ -48,7 +48,7 @@ const Home = async () => {
                 />
             </div>
 
-            <h2 className="text-lg font-semibold mb-4 pl-4">최근 블로그 글</h2>
+            <h2 className="text-lg font-semibold mb-4">최근 블로그 글</h2>
 
             <PreviewList metaList={previewMetaList} />
         </>
