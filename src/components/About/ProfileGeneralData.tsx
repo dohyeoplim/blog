@@ -1,12 +1,12 @@
 import TagList from "@/components/Common/TagList";
 import { GeneralData } from "@/types/about";
 
-const ProfileGeneralData: React.FC<GeneralData> = ({
+const ProfileGeneralData = ({
     title,
     description_1,
     description_2,
     tags,
-}) => {
+}: GeneralData) => {
     return (
         <div className="flex flex-col space-y-4">
             <div className="flex flex-col space-y-2">

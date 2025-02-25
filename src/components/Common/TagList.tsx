@@ -5,7 +5,7 @@ export interface TagListProps {
     badgeClassName?: string;
 }
 
-const TagList: React.FC<TagListProps> = ({ tags, badgeClassName }) => {
+const TagList = ({ tags, badgeClassName }: TagListProps) => {
     return (
         <div className="flex space-x-1 sm:space-x-2">
             {tags.map((tag, index) => (

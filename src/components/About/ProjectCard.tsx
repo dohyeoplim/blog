@@ -1,13 +1,13 @@
 import TagList from "@/components/Common/TagList";
 import { Project } from "@/types/about";
 
-const ProjectCard: React.FC<Project> = ({
+const ProjectCard = ({
     title,
     description,
     tags,
     link,
     linkLabel,
-}) => {
+}: Project) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="flex flex-col space-y-4">

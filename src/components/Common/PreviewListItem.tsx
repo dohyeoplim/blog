@@ -16,12 +16,9 @@ export interface PreviewListItemProps {
     meta: PreviewMeta;
 }
 
-const PreviewListItem: React.FC<PreviewListItemProps> = ({ meta }) => {
+const PreviewListItem = ({ meta }: PreviewListItemProps) => {
     return (
-        <article
-            role="article"
-            className="list-none flex flex-col space-y-2 pl-4"
-        >
+        <article role="article" className="list-none flex flex-col space-y-2">
             <div className="flex flex-col items-start justify-start space-y-2">
                 <header>
                     <Link href={meta.link}>

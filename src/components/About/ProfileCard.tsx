@@ -6,11 +6,11 @@ export interface ProfileCardProps {
     children: React.ReactNode;
 }
 
-const ProfileCard: React.FC<ProfileCardProps> = ({
+const ProfileCard = ({
     imageSrc,
     reverse = false,
     children,
-}) => {
+}: ProfileCardProps) => {
     return (
         <div className="w-full flex flex-row items-center gap-4 sm:gap-6">
             {reverse ? (

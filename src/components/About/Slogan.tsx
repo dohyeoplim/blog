@@ -2,7 +2,7 @@ export interface SloganProps {
     texts: string[];
 }
 
-const Slogan: React.FC<SloganProps> = ({ texts }) => {
+const Slogan = ({ texts }: SloganProps) => {
     return (
         <div className="mt-24 md:text-7xl text-5xl font-extralight flex flex-col space-y-4 cursor-default">
             {texts.map((text, index) => (

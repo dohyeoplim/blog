@@ -8,12 +8,12 @@ export interface PostMetaInfoProps {
     containerClassName?: string;
 }
 
-const PostMetaInfo: React.FC<PostMetaInfoProps> = ({
+const PostMetaInfo = ({
     date,
     tags,
     badgeClassName,
     containerClassName,
-}) => {
+}: PostMetaInfoProps) => {
     return (
         <div
             className={`flex items-center justify-start space-x-2 sm:space-x-3 ${

@@ -18,7 +18,6 @@ const AboutMe = () => {
         <>
             <Header title="👋 About Me" />
             <main>
-                {/* Profile Section */}
                 <ProfileCard imageSrc={profileContent.imageSrc}>
                     <div className="flex flex-col space-y-2">
                         <div>
@@ -41,10 +40,8 @@ const AboutMe = () => {
                     </div>
                 </ProfileCard>
 
-                {/* Slogan Section */}
                 <Slogan texts={sloganContent} />
 
-                {/* Projects Section */}
                 <Section title="Projects">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {projectsContent.map((project, index) => (
@@ -53,7 +50,6 @@ const AboutMe = () => {
                     </div>
                 </Section>
 
-                {/* Experiences Section */}
                 <Section title="Experiences">
                     {experiencesContent.map((exp, index) => (
                         <ProfileCard
@@ -66,7 +62,6 @@ const AboutMe = () => {
                     ))}
                 </Section>
 
-                {/* Education Section */}
                 <Section title="Education">
                     <ProfileGeneralData {...educationContent} />
                 </Section>

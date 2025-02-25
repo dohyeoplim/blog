@@ -1,10 +1,10 @@
-import { SocialLink } from "@/myInfo";
+import { SocialLink } from "@/types/about";
 
 export interface SocialLinksProps {
     links: SocialLink[];
 }
 
-const SocialLinks: React.FC<SocialLinksProps> = ({ links }) => {
+const SocialLinks = ({ links }: SocialLinksProps) => {
     return (
         <ul className="flex space-x-4 pt-2 md:text-base text-sm">
             {links.map((link) => (

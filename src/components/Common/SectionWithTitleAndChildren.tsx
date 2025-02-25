@@ -3,10 +3,7 @@ export interface SectionProps {
     children: React.ReactNode;
 }
 
-const SectionWithTitleAndChildren: React.FC<SectionProps> = ({
-    title,
-    children,
-}) => {
+const SectionWithTitleAndChildren = ({ title, children }: SectionProps) => {
     return (
         <section className="mt-24 border-none shadow-none prose dark:prose-invert">
             <h2>{title}</h2>
