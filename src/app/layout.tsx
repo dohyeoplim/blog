@@ -9,31 +9,40 @@ import "./globals.css";
 
 export const metadata: Metadata = {
     title: "dohyeoplim/blog",
-    description: "dohyeoplim's blog",
-    icons: [
-        {
-            rel: "icon",
-            type: "image/x-icon",
-            url: "/static/favicon.ico",
-        },
-        {
-            rel: "apple-touch-icon",
-            sizes: "180x180",
-            url: "/static/icon/apple-touch-icon.png",
-        },
-        {
-            rel: "icon",
-            type: "image/png",
-            sizes: "32x32",
-            url: "/static/icon/favicon-32x32.png",
-        },
-        {
-            rel: "icon",
-            type: "image/png",
-            sizes: "16x16",
-            url: "/static/icon/favicon-16x16.png",
-        },
-    ],
+    description: "임도협의 블로그!",
+    keywords:
+        "임도협, 도협, dohyeoplim, 개발자, 학생, blog, medium, AI, Machine Learning, Deep Learning, Data Science, Python, Next.js, JavaScript, TypeScript, React",
+    icons: {
+        icon: "/static/favicon.ico",
+        apple: "/static/icon/apple-touch-icon.png",
+        shortcut: "/static/icon/favicon-32x32.png",
+    },
+    openGraph: {
+        title: "dohyeoplim/blog",
+        description: "임도협의 블로그!",
+        url: "https://www.dohyeoplim.me",
+        siteName: "dohyeoplim/blog",
+        images: [
+            {
+                url: "https://www.dohyeoplim.me/static/images/default-thumbnail.jpg",
+                width: 1200,
+                height: 630,
+                alt: "dohyeoplim/blog",
+            },
+        ],
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "dohyeoplim/blog",
+        description: "임도협의 블로그!",
+        images: [
+            "https://www.dohyeoplim.me/static/images/default-thumbnail.jpg",
+        ],
+    },
+    alternates: {
+        canonical: "https://www.dohyeoplim.me",
+    },
 };
 
 export default function RootLayout({
