@@ -2,13 +2,14 @@ import { Badge } from "@/components/ui/badge";
 
 export interface TagListProps {
     tags: string[];
+    badgeClassName?: string;
 }
 
-const TagList: React.FC<TagListProps> = ({ tags }) => {
+const TagList: React.FC<TagListProps> = ({ tags, badgeClassName }) => {
     return (
-        <div className="flex md:space-x-2 space-x-1 md:text-base text-sm">
-            {tags.map((tag) => (
-                <Badge key={tag} variant="outline">
+        <div className="flex space-x-1 sm:space-x-2">
+            {tags.map((tag, index) => (
+                <Badge key={index} variant="outline" className={badgeClassName}>
                     {tag}
                 </Badge>
             ))}
