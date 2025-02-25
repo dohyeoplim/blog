@@ -20,18 +20,24 @@ const Header: React.FC<HeaderProps> = ({
     const isN = pathname === "/n";
     const isInN = pathname.startsWith("/n/");
 
-    const renderSubTitle = () => {
+    const renderHeaderContent = () => {
         if (isHome) {
             return (
-                <span style={{ viewTransitionName: "dohyeoplim" }}>
-                    dohyeoplim/blog
-                </span>
+                <>
+                    <Quote />
+                    <h1
+                        className="text-3xl sm:text-4xl font-bold"
+                        style={{ viewTransitionName: "dohyeoplim" }}
+                    >
+                        dohyeoplim/blog
+                    </h1>
+                </>
             );
         }
 
         return (
-            <div className="flex items-center space-x-3 text-sm sm:text-base font-semibold text-secondary-foreground">
-                <div className="flex items-center space-x-1">
+            <>
+                <div className="flex items-center space-x-3 text-sm sm:text-base font-semibold text-secondary-foreground">
                     <Link href="/">
                         <ArrowLeft className="size-3 sm:size-4" />
                     </Link>
@@ -40,34 +46,29 @@ const Header: React.FC<HeaderProps> = ({
                             dohyeoplim/blog
                         </span>
                     </Link>
+                    {isInN && (
+                        <div className="flex items-center space-x-3">
+                            <span>/</span>
+                            <Link href="/n" className="hover:underline">
+                                <span style={{ viewTransitionName: "n" }}>
+                                    ✏️ 공부 기록
+                                </span>
+                            </Link>
+                        </div>
+                    )}
                 </div>
-                {isInN && (
-                    <div className="flex items-center space-x-3">
-                        <span>/</span>
-                        <Link href="/n" className="hover:underline">
-                            <span style={{ viewTransitionName: "n" }}>
-                                ✏️ 공부 기록
-                            </span>
-                        </Link>
-                    </div>
-                )}
-            </div>
-        );
-    };
-
-    const renderMainTitle = () => {
-        if (!isHome) {
-            return isN ? (
-                <h1 className="text-3xl sm:text-4xl font-bold">
-                    <span style={{ viewTransitionName: "n" }}>
+                {isN ? (
+                    <h1
+                        className="text-3xl sm:text-4xl font-bold"
+                        style={{ viewTransitionName: "n" }}
+                    >
                         ✏️ 공부 기록
-                    </span>
-                </h1>
-            ) : (
-                <h1 className="text-3xl sm:text-4xl font-bold">{title}</h1>
-            );
-        }
-        return null;
+                    </h1>
+                ) : (
+                    <h1 className="text-3xl sm:text-4xl font-bold">{title}</h1>
+                )}
+            </>
+        );
     };
 
     return (
@@ -76,13 +77,7 @@ const Header: React.FC<HeaderProps> = ({
                 bottomPadding ? "pb-12" : ""
             }`}
         >
-            <div>
-                {isHome && <Quote />}
-                <h1 className="text-3xl sm:text-4xl font-bold mb-2">
-                    {renderSubTitle()}
-                </h1>
-                {renderMainTitle()}
-            </div>
+            <div>{renderHeaderContent()}</div>
             <div style={{ viewTransitionName: "mode" }}>
                 <ModeToggle />
             </div>
