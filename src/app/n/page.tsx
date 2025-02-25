@@ -3,8 +3,7 @@ import { Link } from "next-view-transitions";
 import Header from "@/components/Header";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Time from "@/components/Time";
-import { Badge } from "@/components/ui/badge";
+import PostMetaInfo from "@/components/Common/PostMetaInfo";
 
 export const revalidate = 60;
 
@@ -37,25 +36,12 @@ const PublishedNotionPages = async () => {
                         </div>
 
                         <div className="w-full flex items-center justify-between">
-                            <div className="flex space-x-2 sm:space-x-3">
-                                <div>
-                                    <Time date={page.publishedDate} />
-                                </div>
-
-                                {page.tags && page.tags.length > 0 && (
-                                    <div className="flex space-x-1 sm:space-x-2">
-                                        {page.tags.map((tag, index) => (
-                                            <Badge
-                                                key={index}
-                                                variant="outline"
-                                                className="text-xs"
-                                            >
-                                                {tag}
-                                            </Badge>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                            <PostMetaInfo
+                                date={page.publishedDate}
+                                tags={page.tags}
+                                badgeClassName="text-xs"
+                                containerClassName=""
+                            />
                             <Link href={`/n/${page.id}`}>
                                 <Button variant="ghost">
                                     <ArrowRight />

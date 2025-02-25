@@ -4,9 +4,7 @@ import dynamic from "next/dynamic";
 import { ExtendedRecordMap } from "notion-types";
 import Header from "../Header";
 import { PageInfo } from "@/lib/notion/notion-integration";
-import Time from "../Time";
-import { Badge } from "../ui/badge";
-
+import PostMetaInfo from "@/components/Common/PostMetaInfo";
 import "prismjs/themes/prism-tomorrow.css";
 
 const NotionRenderer = dynamic(
@@ -37,21 +35,7 @@ const Renderer = ({
         <>
             <Header title={metadata.title || "Blog"} bottomPadding={false} />
 
-            <div className="flex items-center justify-start space-x-2 sm:space-x-3 mt-4 mb-8">
-                <p>
-                    <Time date={metadata.publishedDate} />
-                </p>
-
-                {metadata.tags && metadata.tags.length > 0 && (
-                    <div className="flex space-x-1 sm:space-x-2">
-                        {metadata.tags.map((tag, index) => (
-                            <Badge key={index} variant="outline">
-                                {tag}
-                            </Badge>
-                        ))}
-                    </div>
-                )}
-            </div>
+            <PostMetaInfo date={metadata.publishedDate} tags={metadata.tags} />
 
             <NotionRenderer
                 recordMap={recordMap}
