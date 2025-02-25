@@ -1,5 +1,12 @@
 import Image from "next/image";
 
+/**
+ * ImageData: Represents data for a single image.
+ * @property src - The image URL.
+ * @property alt - The alternate text.
+ * @property width - The width of the image.
+ * @property height - The height of the image.
+ */
 interface ImageData {
     src: string;
     alt: string;
@@ -7,6 +14,11 @@ interface ImageData {
     height: number;
 }
 
+/**
+ * ImageCollageProps: Represents props for an image collage.
+ * @property leftImage - Data for the left image.
+ * @property rightImage - Data for the right image.
+ */
 interface ImageCollageProps {
     leftImage: ImageData;
     rightImage: ImageData;
@@ -14,6 +26,14 @@ interface ImageCollageProps {
 
 type ImageProps = ImageData | ImageCollageProps;
 
+/**
+ * MDXImage: Renders an image or an image collage in MDX content.
+ * If both leftImage and rightImage are provided, renders a side-by-side collage;
+ * otherwise, renders a single image.
+ *
+ * @param props - Either ImageData or ImageCollageProps.
+ * @returns The rendered image element.
+ */
 const MDXImage = (props: ImageProps) => {
     if ("leftImage" in props && "rightImage" in props) {
         return (

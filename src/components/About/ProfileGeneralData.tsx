@@ -1,3 +1,13 @@
+/**
+ * ProfileGeneralData component.
+ * Displays profile information including a title, two optional descriptions, and associated tags.
+ *
+ * @param {string} title - The main title or name.
+ * @param {string} [description_1] - The primary description (e.g., position or role).
+ * @param {string} [description_2] - The secondary description (e.g., additional details).
+ * @param {string[]} [tags] - An array of tags to display.
+ */
+
 import TagList from "@/components/Common/TagList";
 import { GeneralData } from "@/types/about";
 

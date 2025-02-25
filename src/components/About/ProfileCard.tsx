@@ -1,3 +1,13 @@
+/**
+ * ProfileCard component.
+ * Arranges a profile image alongside children content.
+ * The layout reverses if the `reverse` prop is true.
+ *
+ * @param {string} [imageSrc] - The URL of the profile image.
+ * @param {boolean} [reverse=false] - If true, displays children on the left and image on the right.
+ * @param {React.ReactNode} children - The content to display alongside the profile image.
+ */
+
 import Image from "next/image";
 
 export interface ProfileCardProps {

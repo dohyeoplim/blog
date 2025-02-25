@@ -1,3 +1,7 @@
+/**
+ * PreviewListItem: Renders a preview item with title, description, meta info, and a link button.
+ * @param meta - Preview metadata.
+ */
 import { Link } from "next-view-transitions";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";

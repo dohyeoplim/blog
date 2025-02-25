@@ -1,3 +1,12 @@
+/**
+ * Renderer component.
+ * Renders a Notion page with header, meta info, and Notion content.
+ *
+ * @param recordMap - Notion page record map.
+ * @param metadata - Page metadata.
+ * @returns The rendered Notion page.
+ */
+
 "use client";
 
 import dynamic from "next/dynamic";

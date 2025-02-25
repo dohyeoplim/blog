@@ -1,3 +1,13 @@
+/**
+ * BlogLayout: Layout for blog pages.
+ * Renders the header, post meta information, a summarizer, and article content.
+ *
+ * @param {object} props - Component props.
+ * @param {React.ReactNode} props.children - The blog content.
+ * @param {PostMeta} props.metadata - Metadata for the blog post.
+ * @returns {JSX.Element} The blog layout.
+ */
+
 import Header from "@/components/Header";
 import PostMeta from "@/types/PostMeta";
 import Summarizer from "./Summarizer";

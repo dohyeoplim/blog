@@ -1,3 +1,14 @@
+/**
+ * ProjectCard component.
+ * Renders a card displaying project details including title, description, tags, and a link.
+ *
+ * @param {string} title - The project's title.
+ * @param {string} [description] - A brief description of the project.
+ * @param {string[]} [tags] - An array of tags related to the project.
+ * @param {string} [link] - The URL pointing to the project (e.g., source code or live demo).
+ * @param {string} [linkLabel] - Optional label for the link; defaults to "Source Code".
+ */
+
 import TagList from "@/components/Common/TagList";
 import { Project } from "@/types/about";
 
