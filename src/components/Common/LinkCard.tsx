@@ -7,10 +7,10 @@ export interface LinkCardProps {
     description: string;
 }
 
-const LinkCard: React.FC<LinkCardProps> = ({ href, title, description }) => {
+const LinkCard = ({ href, title, description }: LinkCardProps) => {
     return (
         <Link href={href}>
-            <div className="w-full p-4 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
+            <div className="w-full py-4 px-4 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
                 <h2 className="text-lg font-semibold">{title}</h2>
                 <div className="w-full flex items-center justify-between">
                     <p className="text-sm text-secondary-foreground mt-2">
