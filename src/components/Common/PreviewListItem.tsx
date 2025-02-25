@@ -1,45 +1,55 @@
 import { Link } from "next-view-transitions";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import PostMeta from "@/types/PostMeta";
-import PostMetaInfo from "@/components/Common/PostMetaInfo";
+import PostMetaInfo from "./PostMetaInfo";
 
-interface PreviewListItemProps {
-    meta: PostMeta;
+export interface PreviewMeta {
+    id: string;
+    title: string;
+    description?: string;
+    date: string;
+    tags?: string[];
+    link: string;
 }
 
-const PreviewListItem = ({ meta }: PreviewListItemProps) => {
+export interface PreviewListItemProps {
+    meta: PreviewMeta;
+}
+
+const PreviewListItem: React.FC<PreviewListItemProps> = ({ meta }) => {
     return (
-        <li role="article" className="list-none flex flex-col space-y-2 pl-4">
+        <article
+            role="article"
+            className="list-none flex flex-col space-y-2 pl-4"
+        >
             <div className="flex flex-col items-start justify-start space-y-2">
                 <header>
-                    <Link href={`/blog/${meta.slug}`}>
+                    <Link href={meta.link}>
                         <h2 className="text-xl font-semibold hover:underline cursor-pointer">
                             {meta.title}
                         </h2>
                     </Link>
                 </header>
-
                 {meta.description && (
                     <p className="text-sm text-secondary-foreground">
                         {meta.description}
                     </p>
                 )}
             </div>
-
             <div className="w-full flex items-center justify-between">
                 <PostMetaInfo
                     date={meta.date}
                     tags={meta.tags}
                     badgeClassName="text-xs"
+                    containerClassName=""
                 />
-                <Link href={`/blog/${meta.slug}`}>
+                <Link href={meta.link}>
                     <Button variant="ghost">
                         <ArrowRight />
                     </Button>
                 </Link>
             </div>
-        </li>
+        </article>
     );
 };
 
