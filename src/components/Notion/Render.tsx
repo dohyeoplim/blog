@@ -14,6 +14,8 @@ import { ExtendedRecordMap } from "notion-types";
 import Header from "../Header";
 import { PageInfo } from "@/lib/notion/notion-integration";
 import PostMetaInfo from "@/components/Common/PostMetaInfo";
+
+import "katex/dist/katex.min.css";
 import "prismjs/themes/prism-tomorrow.css";
 
 const NotionRenderer = dynamic(
@@ -30,6 +32,11 @@ const dynamicComponents = {
             ]);
             return mod.Code;
         })
+    ),
+    Equation: dynamic(() =>
+        import("react-notion-x/build/third-party/equation").then(
+            (m) => m.Equation
+        )
     ),
 };
 
