@@ -1,11 +1,11 @@
 import Image from "next/image";
 
 /**
- * ImageData: Represents data for a single image.
- * @property src - The image URL.
- * @property alt - The alternate text.
- * @property width - The width of the image.
- * @property height - The height of the image.
+ * ImageData: 단일 이미지에 대한 데이터를 표현한다.
+ * @property src - 이미지 URL.
+ * @property alt - 대체 텍스트.
+ * @property width - 이미지의 너비.
+ * @property height - 이미지의 높이.
  */
 interface ImageData {
     src: string;
@@ -15,24 +15,37 @@ interface ImageData {
 }
 
 /**
- * ImageCollageProps: Represents props for an image collage.
- * @property leftImage - Data for the left image.
- * @property rightImage - Data for the right image.
+ * ImageCollageProps: 이미지 콜라주에 대한 데이터를 표현한다.
+ * @property leftImage - 왼쪽 이미지 데이터.
+ * @property rightImage - 오른쪽 이미지 데이터.
  */
 interface ImageCollageProps {
     leftImage: ImageData;
     rightImage: ImageData;
 }
 
-type ImageProps = ImageData | ImageCollageProps;
+/**
+ * SingleImageProps: 단일 이미지에 대해 선택적으로 페이지 너비의 몇 %를 차지할지 설정하는 prop을 포함한다.
+ * @property widthPercent - 이미지 컨테이너가 차지할 페이지 너비의 백분율.
+ */
+interface SingleImageProps extends ImageData {
+    widthPercent?: number;
+}
 
 /**
- * MDXImage: Renders an image or an image collage in MDX content.
- * If both leftImage and rightImage are provided, renders a side-by-side collage;
- * otherwise, renders a single image.
+ * ImageProps: 단일 이미지(SingleImageProps) 또는 이미지 콜라주(ImageCollageProps)를 나타낸다.
+ */
+type ImageProps = SingleImageProps | ImageCollageProps;
+
+/**
+ * MDXImage: MDX 컨텐츠 내에서 단일 이미지 또는 이미지 콜라주를 렌더링한다.
+ * 두 이미지(leftImage, rightImage)가 제공되면 사이드바이사이드 콜라주로 렌더링하고,
+ * 그렇지 않으면 단일 이미지를 렌더링한다.
  *
- * @param props - Either ImageData or ImageCollageProps.
- * @returns The rendered image element.
+ * 단일 이미지의 경우, 선택적으로 widthPercent prop을 통해 이미지 컨테이너의 너비를 조절할 수 있다.
+ *
+ * @param props - SingleImageProps 또는 ImageCollageProps.
+ * @returns 렌더링된 이미지 요소.
  */
 const MDXImage = (props: ImageProps) => {
     if ("leftImage" in props && "rightImage" in props) {
@@ -61,8 +74,13 @@ const MDXImage = (props: ImageProps) => {
             </div>
         );
     } else {
+        // 단일 이미지의 경우, 선택적으로 widthPercent에 따른 컨테이너 너비를 적용한다.
+        const containerWidth =
+            "widthPercent" in props && props.widthPercent
+                ? `${props.widthPercent}%`
+                : "100%";
         return (
-            <div style={{ position: "relative", width: "100%" }}>
+            <div style={{ position: "relative", width: containerWidth }}>
                 <Image
                     src={props.src}
                     alt={props.alt}
