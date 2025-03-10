@@ -3,11 +3,11 @@ import Header from "@/components/Header";
 import ProjectCard from "@/components/About/ProjectCard";
 import ProfileGeneralData from "@/components/About/ProfileGeneralData";
 import SocialLinks from "@/components/About/SocialLinks";
-import Slogan from "@/components/About/Slogan";
+// import Slogan from "@/components/About/Slogan";
 import Section from "@/components/Common/SectionWithTitleAndChildren";
 import {
     profileContent,
-    sloganContent,
+    // sloganContent,
     projectsContent,
     experiencesContent,
     educationContent,
@@ -40,7 +40,7 @@ const AboutMe = () => {
                     </div>
                 </ProfileCard>
 
-                <Slogan texts={sloganContent} />
+                {/* <Slogan texts={sloganContent} /> */}
 
                 <Section title="Projects">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
