@@ -7,8 +7,13 @@ import {
 import { Metadata } from "next";
 
 export async function generateStaticParams() {
-    const { results } = await getPublishedPages();
-    return results.map((page) => ({ pageId: page.id }));
+    const { blogs, studies } = await getPublishedPages();
+
+    const allPages = [...blogs, ...studies];
+
+    return allPages.map((page) => ({
+        pageId: page.id,
+    }));
 }
 
 export const revalidate = 60;

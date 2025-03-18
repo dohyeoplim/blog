@@ -13,8 +13,10 @@ export interface PageInfo {
 }
 
 export interface PageListResponse {
-    results: PageInfo[];
+    blogs: PageInfo[];
+    studies: PageInfo[];
     hasMore: boolean;
+    nextCursor?: string;
 }
 
 const notionClient = new Client({
@@ -65,7 +67,7 @@ const parsePageProperties = (page: PageObjectResponse): PageInfo => {
 };
 
 export const getPublishedPages = async (
-    pageSize: number = 10,
+    pageSize: number = 30,
     cursor?: string
 ): Promise<PageListResponse> => {
     const databaseId = process.env.NOTION_DATABASE_ID as string;
@@ -81,11 +83,29 @@ export const getPublishedPages = async (
         start_cursor: cursor,
     });
 
+    const parsedPages = response.results.map((page) =>
+        parsePageProperties(page as PageObjectResponse)
+    );
+
+    const categorizedResults = parsedPages.reduce<{
+        blogs: PageInfo[];
+        studies: PageInfo[];
+    }>(
+        (acc, page) => {
+            if (page.postType === "Blog") {
+                acc.blogs.push(page);
+            } else if (page.postType === "Study") {
+                acc.studies.push(page);
+            }
+            return acc;
+        },
+        { blogs: [], studies: [] }
+    );
+
     return {
-        results: response.results.map((page) =>
-            parsePageProperties(page as PageObjectResponse)
-        ),
+        ...categorizedResults,
         hasMore: response.has_more,
+        nextCursor: response.next_cursor || undefined,
     };
 };
 

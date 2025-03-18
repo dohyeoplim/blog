@@ -6,22 +6,54 @@ import { PreviewMeta } from "@/components/Common/PreviewListItem";
 export const revalidate = 60;
 
 const Home = async () => {
-    const { results: pages } = await getPublishedPages();
+    const { blogs, studies } = await getPublishedPages();
 
-    const previewMetaList: PreviewMeta[] = pages.map((page) => ({
+    const blogPreviewMetaList: PreviewMeta[] = blogs.map((page) => ({
         id: page.id,
         title: page.title,
         description: page.excerpt,
         date: page.publishedDate,
         tags: page.tags,
+        postType: page.postType,
+        link: `/n/${page.id}`,
+    }));
+
+    const studyPreviewMetaList: PreviewMeta[] = studies.map((page) => ({
+        id: page.id,
+        title: page.title,
+        description: page.excerpt,
+        date: page.publishedDate,
+        tags: page.tags,
+        postType: page.postType,
         link: `/n/${page.id}`,
     }));
 
     return (
         <>
             <Header />
-            <h2 className="text-lg font-semibold mb-4">최근 블로그 글</h2>
-            <PreviewList metaList={previewMetaList} />
+            {/* Blog */}
+            <section>
+                <div className="mb-4">
+                    <h2 className="text-md font-medium">최근 블로그 🦊</h2>
+
+                    <p className="text-sm font-light text-gray-500 dark:text-gray-300">
+                        일상..
+                    </p>
+                </div>
+                <PreviewList metaList={blogPreviewMetaList} />
+            </section>
+
+            {/* Study */}
+            <section className="mt-10">
+                <div className="mb-4">
+                    <h2 className="text-md font-medium">공부 노트 😵‍💫</h2>
+
+                    <p className="text-sm font-light text-gray-500 dark:text-gray-300">
+                        기록용
+                    </p>
+                </div>
+                <PreviewList metaList={studyPreviewMetaList} />
+            </section>
         </>
     );
 };
