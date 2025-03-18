@@ -17,8 +17,6 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
     const pathname = usePathname();
     const isHome = pathname === "/";
-    const isN = pathname === "/n";
-    const isInN = pathname.startsWith("/n/");
 
     const renderSubTitle = () => {
         if (isHome) {
@@ -41,31 +39,13 @@ const Header: React.FC<HeaderProps> = ({
                         </span>
                     </Link>
                 </div>
-                {isInN && (
-                    <div className="flex items-center space-x-3">
-                        <span>/</span>
-                        <Link href="/n" className="hover:underline">
-                            <span style={{ viewTransitionName: "n" }}>
-                                ✏️ 공부 기록
-                            </span>
-                        </Link>
-                    </div>
-                )}
             </div>
         );
     };
 
     const renderMainTitle = () => {
         if (!isHome) {
-            return isN ? (
-                <h1 className="text-3xl sm:text-4xl font-bold">
-                    <span style={{ viewTransitionName: "n" }}>
-                        ✏️ 공부 기록
-                    </span>
-                </h1>
-            ) : (
-                <h1 className="text-3xl sm:text-4xl font-bold">{title}</h1>
-            );
+            return <h1 className="text-3xl sm:text-4xl font-bold">{title}</h1>;
         }
         return null;
     };
