@@ -14,6 +14,7 @@ const PublishedNotionPages = async () => {
         description: page.excerpt,
         date: page.publishedDate,
         tags: page.tags,
+        postType: page.postType,
         link: `/n/${page.id}`,
     }));
 

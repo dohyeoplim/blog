@@ -14,6 +14,7 @@ export interface PreviewMeta {
     date: string;
     tags?: string[];
     link: string;
+    postType?: string;
 }
 
 export interface PreviewListItemProps {
