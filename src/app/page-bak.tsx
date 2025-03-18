@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import PreviewList from "@/components/Common/PreviewList";
-import LinkCard from "@/components/Common/LinkCard";
 import { getAllMdxMetadata } from "@/lib/mdxUtils";
 
 export const revalidate = 60;
