@@ -9,6 +9,7 @@ export interface PageInfo {
     publishedDate: string;
     excerpt?: string;
     tags?: string[];
+    postType?: string;
 }
 
 export interface PageListResponse {
@@ -47,6 +48,11 @@ const parsePageProperties = (page: PageObjectResponse): PageInfo => {
             ? properties.Tags.multi_select?.map((tag) => tag.name) || []
             : [];
 
+    const postType =
+        properties.PostType?.type === "select"
+            ? properties.PostType.select?.name
+            : "Blog"; // Default to Blog
+
     return {
         id: page.id.replace(/-/g, ""),
         title,
@@ -54,6 +60,7 @@ const parsePageProperties = (page: PageObjectResponse): PageInfo => {
         publishedDate,
         excerpt,
         tags,
+        postType,
     };
 };
 
