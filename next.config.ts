@@ -1,21 +1,7 @@
 import type { NextConfig } from "next";
-import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
-    pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
-
-    experimental: {
-        mdxRs: true,
-    },
-
-    webpack: (config) => {
-        config.resolve.alias = {
-            ...config.resolve.alias,
-            "onnxruntime-node$": false,
-        };
-        return config;
-    },
-
+    pageExtensions: ["js", "jsx", "ts", "tsx"],
     images: {
         remotePatterns: [
             {
@@ -53,7 +39,6 @@ const nextConfig: NextConfig = {
         dangerouslyAllowSVG: false,
         contentSecurityPolicy: "default-src 'self'",
     },
-
     async redirects() {
         return [
             {
@@ -65,6 +50,4 @@ const nextConfig: NextConfig = {
     },
 };
 
-const withMDX = createMDX({});
-
-export default withMDX(nextConfig);
+export default nextConfig;
