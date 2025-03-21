@@ -3,7 +3,7 @@ import { ViewTransitions } from "next-view-transitions";
 import { pretendard, firaCode } from "@/lib/fonts";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
-import Analytics from "@/components/Analytics";
+import Analytics from "@/components/AnalyticsTag";
 
 import "./globals.css";
 
