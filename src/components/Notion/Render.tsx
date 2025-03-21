@@ -8,7 +8,8 @@
  */
 
 "use client";
-
+import Image from "next/image";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ExtendedRecordMap } from "notion-types";
 import Header from "../Header";
@@ -59,7 +60,11 @@ const Renderer = ({
                 hideBlockId={true}
                 disableHeader={true}
                 showTableOfContents={false}
-                components={dynamicComponents}
+                components={{
+                    nextImage: Image,
+                    nextLink: Link,
+                    ...dynamicComponents,
+                }}
                 className="prose prose-img:rounded-md prose-sm dark:prose-invert"
             />
         </>

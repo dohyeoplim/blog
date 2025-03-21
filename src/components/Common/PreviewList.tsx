@@ -9,7 +9,7 @@ export interface PreviewListProps {
 }
 
 const PreviewList = ({ metaList }: PreviewListProps) => (
-    <section className="space-y-12">
+    <section className="space-y-6">
         {metaList.map((meta) => (
             <PreviewListItem key={meta.id} meta={meta} />
         ))}

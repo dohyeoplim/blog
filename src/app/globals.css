@@ -842,3 +842,10 @@
 .notion-external-description:hover .notion-external-subtitle {
     display: block;
 }
+
+.notion-row {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+}

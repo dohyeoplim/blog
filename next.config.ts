@@ -53,6 +53,16 @@ const nextConfig: NextConfig = {
         dangerouslyAllowSVG: false,
         contentSecurityPolicy: "default-src 'self'",
     },
+
+    async redirects() {
+        return [
+            {
+                source: "/n",
+                destination: "/",
+                permanent: true,
+            },
+        ];
+    },
 };
 
 const withMDX = createMDX({});

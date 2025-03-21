@@ -33,7 +33,7 @@ const Home = async () => {
             <Header />
             {/* Blog */}
             <section>
-                <div className="mb-4">
+                <div className="mb-6">
                     <h2 className="text-md font-medium">최근 블로그 🦊</h2>
 
                     <p className="text-sm font-light text-gray-500 dark:text-gray-300">
@@ -43,9 +43,11 @@ const Home = async () => {
                 <PreviewList metaList={blogPreviewMetaList} />
             </section>
 
+            <hr className="mb-8 mt-4" />
+
             {/* Study */}
-            <section className="mt-10">
-                <div className="mb-4">
+            <section>
+                <div className="mb-6">
                     <h2 className="text-md font-medium">공부 노트 😵‍💫</h2>
 
                     <p className="text-sm font-light text-gray-500 dark:text-gray-300">
