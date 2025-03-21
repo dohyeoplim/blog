@@ -29,10 +29,10 @@ export async function generateMetadata({
         const { metadata } = await getPageRecordMap(pageId);
         return {
             title: metadata?.title || "dohyeoplim/blog",
-            description: metadata?.excerpt || "임도협의 블로그!",
+            description: metadata?.excerpt || "뭘 쓰면 좋을까요!",
             openGraph: {
                 title: metadata?.title || "dohyeoplim/blog",
-                description: metadata?.excerpt || "임도협의 블로그!",
+                description: metadata?.excerpt || "뭘 쓰면 좋을까요!",
                 images: [
                     {
                         url:
@@ -47,7 +47,7 @@ export async function generateMetadata({
             twitter: {
                 card: "summary_large_image",
                 title: metadata?.title || "dohyeoplim/blog",
-                description: metadata?.excerpt || "임도협의 블로그!",
+                description: metadata?.excerpt || "뭘 쓰면 좋을까요!",
                 images: [
                     metadata?.cover ||
                         "https://www.dohyeoplim.me/static/images/default-thumbnail.jpg",

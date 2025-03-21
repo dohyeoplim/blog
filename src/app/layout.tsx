@@ -9,7 +9,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
     title: "dohyeoplim/blog",
-    description: "임도협의 블로그!",
+    description: "뭘 쓰면 좋을까요!",
     keywords:
         "임도협, 도협, dohyeoplim, 개발자, 학생, blog, medium, AI, Machine Learning, Deep Learning, Data Science, Python, Next.js, JavaScript, TypeScript, React",
     icons: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: "dohyeoplim/blog",
-        description: "임도협의 블로그!",
+        description: "뭘 쓰면 좋을까요!",
         url: "https://www.dohyeoplim.me",
         siteName: "dohyeoplim/blog",
         images: [
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "dohyeoplim/blog",
-        description: "임도협의 블로그!",
+        description: "뭘 쓰면 좋을까요!",
         images: [
             "https://www.dohyeoplim.me/static/images/default-thumbnail.jpg",
         ],
