@@ -18,6 +18,7 @@ import PostMetaInfo from "@/components/Common/PostMetaInfo";
 
 import "katex/dist/katex.min.css";
 import "prismjs/themes/prism-tomorrow.css";
+import ScrollProgress from "../Blog/ScrollProgress";
 
 const NotionRenderer = dynamic(
     () => import("react-notion-x").then((mod) => mod.NotionRenderer),
@@ -50,6 +51,8 @@ const Renderer = ({
 }) => {
     return (
         <>
+            <ScrollProgress />
+
             <Header title={metadata.title || "Blog"} bottomPadding={false} />
 
             <PostMetaInfo date={metadata.publishedDate} tags={metadata.tags} />
