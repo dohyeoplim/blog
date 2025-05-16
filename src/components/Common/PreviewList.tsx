@@ -1,17 +1,14 @@
-/**
- * PreviewList: Renders a list of preview items.
- * @param metaList - Array of preview metadata.
- */
-import PreviewListItem, { PreviewMeta } from "./PreviewListItem";
+import type { PostSummary } from "@/types/post";
+import PreviewListItem from "./PreviewListItem";
 
-export interface PreviewListProps {
-    metaList: PreviewMeta[];
+interface PreviewListProps {
+    posts: PostSummary[];
 }
 
-const PreviewList = ({ metaList }: PreviewListProps) => (
+const PreviewList = ({ posts }: PreviewListProps) => (
     <section className="space-y-6">
-        {metaList.map((meta) => (
-            <PreviewListItem key={meta.id} meta={meta} />
+        {posts.map((post) => (
+            <PreviewListItem key={post.id} post={post} />
         ))}
     </section>
 );
