@@ -1,51 +1,38 @@
-/**
- * PreviewListItem: Renders a preview item with title, description, meta info, and a link button.
- * @param meta - Preview metadata.
- */
 import { Link } from "next-view-transitions";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import PostMetaInfo from "./PostMetaInfo";
-
-export interface PreviewMeta {
-    id: string;
-    title: string;
-    description?: string;
-    date: string;
-    tags?: string[];
-    link: string;
-    postType?: string;
-}
+import type { PostSummary } from "@/types/post";
 
 export interface PreviewListItemProps {
-    meta: PreviewMeta;
+    post: PostSummary;
 }
 
-const PreviewListItem = ({ meta }: PreviewListItemProps) => {
+const PreviewListItem = ({ post }: PreviewListItemProps) => {
     return (
         <article role="article" className="list-none flex flex-col space-y-2">
             <div className="flex flex-col items-start justify-start space-y-2">
                 <header>
-                    <Link href={meta.link}>
+                    <Link href={`/blog/${post.slug}`}>
                         <h2 className="text-xl font-semibold hover:underline cursor-pointer">
-                            {meta.title}
+                            {post.title}
                         </h2>
                     </Link>
                 </header>
-                {meta.description && (
+                {post.excerpt && (
                     <p className="text-sm text-secondary-foreground">
-                        {meta.description}
+                        {post.excerpt}
                     </p>
                 )}
             </div>
             <div className="w-full flex items-center justify-between">
                 <PostMetaInfo
-                    date={meta.date}
-                    tags={meta.tags}
+                    date={post.created_at}
+                    tags={post.tags}
                     badgeClassName="text-xs"
                     containerClassName=""
                 />
-                <Link href={meta.link}>
+                <Link href={`/blog/${post.slug}`}>
                     <Button variant="ghost">
                         <ArrowRight />
                     </Button>

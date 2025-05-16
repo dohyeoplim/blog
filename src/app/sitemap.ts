@@ -1,13 +1,22 @@
 import type { MetadataRoute } from "next";
-import { getPublishedPages } from "@/lib/notion/notion-integration";
+import type { PostSummary } from "@/types/post";
 
 const BASE_URL = "https://www.dohyeoplim.me";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const { blogs, studies } = await getPublishedPages();
-    const allPages = [...blogs, ...studies];
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+        cache: "no-store",
+    });
 
-    const additionalUrls = [
+    let posts: PostSummary[] = [];
+
+    if (res.ok) {
+        posts = await res.json();
+    } else {
+        console.error("❌ Failed to fetch posts for sitemap");
+    }
+
+    const staticUrls = [
         {
             url: `${BASE_URL}/`,
             lastModified: new Date().toISOString(),
@@ -18,12 +27,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     ];
 
-    const notionUrls = allPages.map((page) => ({
-        url: `${BASE_URL}/n/${page.id}`,
-        lastModified: page.publishedDate,
+    const blogUrls = posts.map((post) => ({
+        url: `${BASE_URL}/blog/${post.slug}`,
+        lastModified:
+            post.updated_at || post.created_at || new Date().toISOString(),
     }));
 
-    const allUrls = [...additionalUrls, ...notionUrls];
-
-    return allUrls;
+    return [...staticUrls, ...blogUrls];
 }

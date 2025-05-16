@@ -1,60 +1,66 @@
-import { getPublishedPages } from "@/lib/notion/notion-integration";
+"use client";
+
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import PreviewList from "@/components/Common/PreviewList";
-import { PreviewMeta } from "@/components/Common/PreviewListItem";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export const revalidate = 60;
+import type { PostSummary } from "@/types/post";
 
-const Home = async () => {
-    const { blogs, studies } = await getPublishedPages();
+const Home = () => {
+    const [posts, setPosts] = useState<PostSummary[] | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
-    const blogPreviewMetaList: PreviewMeta[] = blogs.map((page) => ({
-        id: page.id,
-        title: page.title,
-        description: page.excerpt,
-        date: page.publishedDate,
-        tags: page.tags,
-        postType: page.postType,
-        link: `/n/${page.id}`,
-    }));
+    useEffect(() => {
+        async function fetchPosts() {
+            try {
+                const res = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/posts`
+                );
+                if (!res.ok) throw new Error("Failed to fetch");
 
-    const studyPreviewMetaList: PreviewMeta[] = studies.map((page) => ({
-        id: page.id,
-        title: page.title,
-        description: page.excerpt,
-        date: page.publishedDate,
-        tags: page.tags,
-        postType: page.postType,
-        link: `/n/${page.id}`,
-    }));
+                const data: PostSummary[] = await res.json();
+                setPosts(data);
+            } catch (err) {
+                console.error("게시글 로딩 실패:", err);
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchPosts();
+    }, []);
 
     return (
         <>
             <Header />
-            {/* Blog */}
             <section>
                 <div className="mb-6">
                     <h2 className="text-md font-medium">최근 블로그 🦊</h2>
-
-                    <p className="text-sm font-light text-gray-500 dark:text-gray-300">
-                        일상..
-                    </p>
                 </div>
-                <PreviewList metaList={blogPreviewMetaList} />
-            </section>
-
-            <hr className="mb-8 mt-4" />
-
-            {/* Study */}
-            <section>
-                <div className="mb-6">
-                    <h2 className="text-md font-medium">공부 노트 😵‍💫</h2>
-
-                    <p className="text-sm font-light text-gray-500 dark:text-gray-300">
-                        기록용
+                {loading ? (
+                    <div className="space-y-6">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                            <div key={i} className="space-y-2">
+                                <Skeleton className="h-6 w-2/3" />
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-1/2" />
+                            </div>
+                        ))}
+                    </div>
+                ) : error || posts === null ? (
+                    <p className="text-sm text-muted-foreground">
+                        아직 게시된 글이 없습니다.
                     </p>
-                </div>
-                <PreviewList metaList={studyPreviewMetaList} />
+                ) : posts.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                        아직 게시된 글이 없습니다.
+                    </p>
+                ) : (
+                    <PreviewList posts={posts} />
+                )}
             </section>
         </>
     );
