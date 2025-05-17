@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Typography from "@tiptap/extension-typography";
@@ -12,6 +13,8 @@ import { all, createLowlight } from "lowlight";
 import { Button } from "@/components/ui/button";
 import { ColorHighlighter } from "./extensions/ColorHighlighter";
 import CodeBlockComponent from "./CodeBlockComponent";
+import { useDropzone } from "react-dropzone";
+import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/blog-utils";
 
 const lowlight = createLowlight(all);
 
@@ -21,6 +24,8 @@ type Props = {
 };
 
 export default function TiptapEditor({ value, onChange }: Props) {
+    const [showUploader, setShowUploader] = useState(false);
+
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -47,12 +52,32 @@ export default function TiptapEditor({ value, onChange }: Props) {
         },
     });
 
-    if (!editor) return null;
+    const onDrop = async (acceptedFiles: File[]) => {
+        const file = acceptedFiles[0];
+        if (!file) return;
 
-    const addImage = () => {
-        const url = window.prompt("이미지 URL을 입력하세요");
-        if (url) editor.chain().focus().setImage({ src: url }).run();
+        if (file.size > MAX_FILE_SIZE) {
+            alert("파일이 너무 커요");
+            return;
+        }
+
+        try {
+            const url = await handleImageUpload(file);
+            editor?.chain().focus().setImage({ src: url }).run();
+            setShowUploader(false);
+        } catch (err) {
+            alert((err as Error).message);
+        }
     };
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop,
+        accept: { "image/*": [] },
+        multiple: false,
+        maxFiles: 1,
+    });
+
+    if (!editor) return null;
 
     return (
         <div className="space-y-3">
@@ -106,10 +131,28 @@ export default function TiptapEditor({ value, onChange }: Props) {
                 >
                     Code
                 </Button>
-                <Button type="button" variant="outline" onClick={addImage}>
+                <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setShowUploader((s) => !s)}
+                >
                     Add Image
                 </Button>
             </div>
+
+            {showUploader && (
+                <div
+                    {...getRootProps()}
+                    className="border-2 border-dashed border-gray-400 rounded p-6 text-center bg-gray-50 dark:bg-gray-800 cursor-pointer"
+                >
+                    <input {...getInputProps()} />
+                    {isDragActive ? (
+                        <p>이미지를 여기에 놓아주세요…</p>
+                    ) : (
+                        <p>이미지를 드래그하거나 클릭하여 업로드</p>
+                    )}
+                </div>
+            )}
 
             <div className="border rounded-md p-4 bg-background">
                 <EditorContent editor={editor} />
