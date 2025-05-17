@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Typography from "@tiptap/extension-typography";
